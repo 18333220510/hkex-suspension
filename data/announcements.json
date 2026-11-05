@@ -1,12 +1,42 @@
 [
   {
+    "id": "/listedco/listconews/sehk/2026/1105/2026110500150_c.htm",
+    "date": "2026-11-05",
+    "time": "08:35",
+    "stockName": "應力控股",
+    "stockCode": "02663",
+    "title": "交易所通告 - 復牌",
+    "eventType": "復牌",
+    "nature": "復牌",
+    "attention": [],
+    "category": "公告及通告 - [復牌]",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1105/2026110500150_c.htm"
+  },
+  {
+    "id": "/listedco/listconews/sehk/2026/1104/2026110402230_c.pdf",
+    "date": "2026-11-04",
+    "time": "22:08",
+    "stockName": "順風清潔能源",
+    "stockCode": "01165",
+    "title": "公告額外復牌指引及有關董事辭任之補充資料",
+    "eventType": "復牌",
+    "nature": "停牌",
+    "attention": [],
+    "category": "公告及通告 - [內幕消息 &#x2f; 更換董事或重要行政職能或職責的變更 &#x2f; 停牌]",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1104/2026110402230_c.pdf"
+  },
+  {
     "id": "/listedco/listconews/sehk/2026/1104/2026110402124_c.pdf",
     "date": "2026-11-04",
     "time": "20:54",
     "stockName": "冠軍科技集團",
     "stockCode": "00092",
     "title": "核數師辭任及繼續暫停買賣",
+    "eventType": "停牌",
     "nature": "暫停買賣",
+    "attention": [
+      "核数师辞任"
+    ],
     "category": "公告及通告 - [更換核數師]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1104/2026110402124_c.pdf"
   },
@@ -17,7 +47,9 @@
     "stockName": "瑋俊生物科技",
     "stockCode": "00660",
     "title": "延遲董事會會議及繼續暫停買賣",
+    "eventType": "停牌",
     "nature": "暫停買賣",
+    "attention": [],
     "category": "公告及通告 - [內幕消息 &#x2f; 延遲發表業績公告 &#x2f; 停牌]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1104/2026110401377_c.pdf"
   },
@@ -28,7 +60,9 @@
     "stockName": "彼岸控股",
     "stockCode": "02885",
     "title": "短暫停牌",
+    "eventType": "停牌",
     "nature": "短暫停牌",
+    "attention": [],
     "category": "公告及通告 - [短暫停牌]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1104/2026110400328_c.pdf"
   },
@@ -39,9 +73,24 @@
     "stockName": "彼岸控股",
     "stockCode": "02885",
     "title": "交易所通告 - 短暫停牌",
+    "eventType": "停牌",
     "nature": "短暫停牌",
+    "attention": [],
     "category": "公告及通告 - [短暫停牌]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1104/2026110400318_c.htm"
+  },
+  {
+    "id": "/listedco/listconews/gem/2026/1104/2026110400068_c.htm",
+    "date": "2026-11-04",
+    "time": "08:39",
+    "stockName": "榮豐集團亞洲",
+    "stockCode": "08526",
+    "title": "交易所通告 - 復牌",
+    "eventType": "復牌",
+    "nature": "復牌",
+    "attention": [],
+    "category": "公告及通告 - [復牌]",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1104/2026110400068_c.htm"
   },
   {
     "id": "/listedco/listconews/sehk/2026/1103/2026110302464_c.pdf",
@@ -50,7 +99,9 @@
     "stockName": "中國健康科技集團",
     "stockCode": "01069",
     "title": "內幕消息\n(I) 延遲刊發年度業績；(II) 董事會會議延期；及(III) 暫停買賣",
+    "eventType": "停牌",
     "nature": "暫停買賣",
+    "attention": [],
     "category": "公告及通告 - [內幕消息 &#x2f; 延遲發表業績公告 &#x2f; 董事會召開日期 &#x2f; 停牌]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1103/2026110302464_c.pdf"
   },
@@ -61,9 +112,29 @@
     "stockName": "志道國際",
     "stockCode": "01220",
     "title": "內幕消息核數師辭任及繼續暫停買賣",
+    "eventType": "停牌",
     "nature": "暫停買賣",
+    "attention": [
+      "核数师辞任"
+    ],
     "category": "公告及通告 - [內幕消息 &#x2f; 停牌]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1103/2026110302280_c.pdf"
+  },
+  {
+    "id": "/listedco/listconews/gem/2026/1103/2026110302276_c.pdf",
+    "date": "2026-11-03",
+    "time": "20:38",
+    "stockName": "榮豐集團亞洲",
+    "stockCode": "08526",
+    "title": "聯合公佈 (1) 完成買賣契據；(2) 弘雅資本有限公司為及代表LUMINA HOLDINGS LIMITED提出強制性無條件現金要約以收購榮豐集團亞洲有限公司之全部已發行股份（要約人、其最終實益擁有人及任何彼等之一致行動人士已擁有或同意將予收購者除外）；(3) 委任獨立財務顧問；及 (4) 恢復買賣",
+    "eventType": "復牌",
+    "nature": "恢復買賣",
+    "attention": [
+      "收购合并",
+      "股权变动"
+    ],
+    "category": "公告及通告 - [《收購守則》所指的受要約公司刊發的公告 &#x2f; 《收購守則》所指的要約公司刊發的公告 &#x2f; 股權出現變動 &#x2f; 復牌]",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1103/2026110302276_c.pdf"
   },
   {
     "id": "/listedco/listconews/sehk/2026/1103/2026110300633_c.pdf",
@@ -72,9 +143,92 @@
     "stockName": "景瑞控股",
     "stockCode": "01862",
     "title": "季度更新公告及繼續暫停買賣",
+    "eventType": "停牌",
     "nature": "暫停買賣",
+    "attention": [],
     "category": "公告及通告 - [內幕消息 &#x2f; 停牌]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1103/2026110300633_c.pdf"
+  },
+  {
+    "id": "/listedco/listconews/sehk/2026/1103/2026110300082_c.htm",
+    "date": "2026-11-03",
+    "time": "08:45",
+    "stockName": "亨泰",
+    "stockCode": "00197",
+    "title": "交易所通告 - 復牌",
+    "eventType": "復牌",
+    "nature": "復牌",
+    "attention": [],
+    "category": "公告及通告 - [復牌]",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1103/2026110300082_c.htm"
+  },
+  {
+    "id": "/listedco/listconews/gem/2026/1103/2026110300080_c.htm",
+    "date": "2026-11-03",
+    "time": "08:45",
+    "stockName": "熒德控股",
+    "stockCode": "08535",
+    "title": "交易所通告 - 復牌",
+    "eventType": "復牌",
+    "nature": "復牌",
+    "attention": [],
+    "category": "公告及通告 - [復牌]",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1103/2026110300080_c.htm"
+  },
+  {
+    "id": "/listedco/listconews/sehk/2026/1103/2026110300078_c.htm",
+    "date": "2026-11-03",
+    "time": "08:45",
+    "stockName": "胡桃資本",
+    "stockCode": "00905",
+    "title": "交易所通告 - 復牌",
+    "eventType": "復牌",
+    "nature": "復牌",
+    "attention": [],
+    "category": "公告及通告 - [復牌]",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1103/2026110300078_c.htm"
+  },
+  {
+    "id": "/listedco/listconews/sehk/2026/1103/2026110300076_c.htm",
+    "date": "2026-11-03",
+    "time": "08:45",
+    "stockName": "永恒策略",
+    "stockCode": "00764",
+    "title": "交易所通告 - 復牌",
+    "eventType": "復牌",
+    "nature": "復牌",
+    "attention": [],
+    "category": "公告及通告 - [復牌]",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1103/2026110300076_c.htm"
+  },
+  {
+    "id": "/listedco/listconews/sehk/2026/1102/2026110203936_c.pdf",
+    "date": "2026-11-02",
+    "time": "22:39",
+    "stockName": "亨泰",
+    "stockCode": "00197",
+    "title": "二零二五╱二六年度業績公告及恢復買賣",
+    "eventType": "復牌",
+    "nature": "恢復買賣",
+    "attention": [],
+    "category": "公告及通告 - [末期業績 &#x2f; 復牌]",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1102/2026110203936_c.pdf"
+  },
+  {
+    "id": "/listedco/listconews/gem/2026/1102/2026110203898_c.pdf",
+    "date": "2026-11-02",
+    "time": "22:25",
+    "stockName": "熒德控股",
+    "stockCode": "08535",
+    "title": "聯合公告(1)完成收購熒德控股有限公司的銷售股份；(2)由宏智證券（香港）有限公司為及代表ZENG KAI先生提出無條件強制性現金要約，以收購熒德控股有限公司全部已發行股份（要約人一致行動集團已擁有及╱或同意收購者除外）；及(3)恢復買賣",
+    "eventType": "復牌",
+    "nature": "恢復買賣",
+    "attention": [
+      "收购合并",
+      "股权变动"
+    ],
+    "category": "公告及通告 - [《收購守則》所指的受要約公司刊發的公告 &#x2f; 《收購守則》所指的要約公司刊發的公告 &#x2f; 股權出現變動 &#x2f; 內幕消息 &#x2f; 復牌]",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1102/2026110203898_c.pdf"
   },
   {
     "id": "/listedco/listconews/sehk/2026/1102/2026110203776_c.pdf",
@@ -83,9 +237,26 @@
     "stockName": "胡桃資本",
     "stockCode": "00905",
     "title": "內幕消息(1)控股股東配售現有股份；(2)有關暫停買賣之澄清；及(3)恢復買賣",
+    "eventType": "復牌",
     "nature": "暫停買賣",
+    "attention": [
+      "股权变动"
+    ],
     "category": "公告及通告 - [內幕消息 &#x2f; 股權出現變動 &#x2f; 復牌]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1102/2026110203776_c.pdf"
+  },
+  {
+    "id": "/listedco/listconews/sehk/2026/1102/2026110203188_c.pdf",
+    "date": "2026-11-02",
+    "time": "18:17",
+    "stockName": "永恒策略",
+    "stockCode": "00764",
+    "title": "(1)非常重大出售事項出售物業及(2)恢復買賣",
+    "eventType": "復牌",
+    "nature": "恢復買賣",
+    "attention": [],
+    "category": "公告及通告 - [非常重大的出售事項 &#x2f; 內幕消息 &#x2f; 復牌]",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1102/2026110203188_c.pdf"
   },
   {
     "id": "/listedco/listconews/sehk/2026/1102/2026110201050_c.pdf",
@@ -94,7 +265,9 @@
     "stockName": "胡桃資本",
     "stockCode": "00905",
     "title": "短暫停牌",
+    "eventType": "停牌",
     "nature": "短暫停牌",
+    "attention": [],
     "category": "公告及通告 - [短暫停牌 &#x2f; 內幕消息]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1102/2026110201050_c.pdf"
   },
@@ -105,9 +278,40 @@
     "stockName": "胡桃資本",
     "stockCode": "00905",
     "title": "交易所通告 - 短暫停牌",
+    "eventType": "停牌",
     "nature": "短暫停牌",
+    "attention": [],
     "category": "公告及通告 - [短暫停牌]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1102/2026110200948_c.htm"
+  },
+  {
+    "id": "/listedco/listconews/sehk/2026/1102/2026110200080_c.htm",
+    "date": "2026-11-02",
+    "time": "08:47",
+    "stockName": "亮晴控股",
+    "stockCode": "03774",
+    "title": "交易所通告 - 復牌",
+    "eventType": "復牌",
+    "nature": "復牌",
+    "attention": [],
+    "category": "公告及通告 - [復牌]",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1102/2026110200080_c.htm"
+  },
+  {
+    "id": "/listedco/listconews/sehk/2026/1030/2026103002774_c.pdf",
+    "date": "2026-10-30",
+    "time": "22:53",
+    "stockName": "亮晴控股",
+    "stockCode": "03774",
+    "title": "聯合公告(1)昇展國際有限公司收購亮晴控股有限公司的控股權益(2)八方金融有限公司及結好證券有限公司為及代表昇展國際有限公司提出收購亮晴控股有限公司全部已發行股份（不包括要約人、文先生及與彼等任何一方一致行動人士已經擁有的股份）的無條件強制性現金要約(3)成立獨立董事委員會(4)委任獨立財務顧問及(5)恢復買賣",
+    "eventType": "復牌",
+    "nature": "恢復買賣",
+    "attention": [
+      "收购合并",
+      "股权变动"
+    ],
+    "category": "公告及通告 - [《收購守則》所指的受要約公司刊發的公告 &#x2f; 《收購守則》所指的要約公司刊發的公告 &#x2f; 股權出現變動 &#x2f; 內幕消息 &#x2f; 復牌]",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1030/2026103002774_c.pdf"
   },
   {
     "id": "/listedco/listconews/sehk/2026/1030/2026103002546_c.pdf",
@@ -116,7 +320,9 @@
     "stockName": "星太鏈集團",
     "stockCode": "00399",
     "title": "延長最後截止日期及進一步延遲寄發通函有關修訂可換股債券之條款及條件及於附屬公司層面之關連交易；及繼續暫停買賣",
+    "eventType": "停牌",
     "nature": "暫停買賣",
+    "attention": [],
     "category": "公告及通告 - [更改證券條款或隨附於證券的權利 &#x2f; 關連交易 &#x2f; 停牌]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1030/2026103002546_c.pdf"
   },
@@ -127,7 +333,9 @@
     "stockName": "茶百道",
     "stockCode": "02555",
     "title": "2026年第一次臨時股東會投票表決結果派發2026年中期股息及繼續暫停買賣",
+    "eventType": "停牌",
     "nature": "暫停買賣",
+    "attention": [],
     "category": "公告及通告 - [股東特別大會的結果 &#x2f; 股份計劃 &#x2f; 股息或分派 &#x2f; 停牌]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1030/2026103001996_c.pdf"
   },
@@ -138,9 +346,24 @@
     "stockName": "合生創展集團",
     "stockCode": "00754",
     "title": "(1)進一步延遲刊發2026年中期業績及寄發2026年中期報告；(2)進一步延遲完成內部監控檢討；及(3)繼續暫停買賣",
+    "eventType": "停牌",
     "nature": "暫停買賣",
+    "attention": [],
     "category": "公告及通告 - [內幕消息 &#x2f; 延遲發表業績公告 &#x2f; 停牌]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1030/2026103001831_c.pdf"
+  },
+  {
+    "id": "/listedco/listconews/sehk/2026/1030/2026103001803_c.pdf",
+    "date": "2026-10-30",
+    "time": "18:48",
+    "stockName": "穎通控股",
+    "stockCode": "06883",
+    "title": "獨立調查委員會的組成變更及復牌進度更新",
+    "eventType": "復牌",
+    "nature": "停牌",
+    "attention": [],
+    "category": "公告及通告 - [更換董事或重要行政職能或職責的變更 &#x2f; 停牌]",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1030/2026103001803_c.pdf"
   },
   {
     "id": "/listedco/listconews/sehk/2026/1030/2026103001221_c.pdf",
@@ -149,9 +372,26 @@
     "stockName": "陽光１００中國",
     "stockCode": "02608",
     "title": "由法院作出清盤；委任臨時清盤人；及暫停買賣",
+    "eventType": "停牌",
     "nature": "暫停買賣",
+    "attention": [],
     "category": "公告及通告 - [內幕消息 &#x2f; 停牌 &#x2f; 發行人、其控股公司或主要附屬公司結束營業及清盤]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1030/2026103001221_c.pdf"
+  },
+  {
+    "id": "/listedco/listconews/gem/2026/1030/2026103001181_c.pdf",
+    "date": "2026-10-30",
+    "time": "17:32",
+    "stockName": "天泓文創",
+    "stockCode": "08500",
+    "title": "復牌指引及上市規則項下之除牌架構；以及季度最新情況公佈",
+    "eventType": "復牌",
+    "nature": "停牌",
+    "attention": [
+      "除牌风险"
+    ],
+    "category": "公告及通告 - [內幕消息 &#x2f; 其他-業務發展最新情況 &#x2f; 停牌]",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1030/2026103001181_c.pdf"
   },
   {
     "id": "/listedco/listconews/sehk/2026/1030/2026103000765_c.pdf",
@@ -160,7 +400,9 @@
     "stockName": "遠東控股國際",
     "stockCode": "00036",
     "title": "復牌進展的季度更新及繼續暫停買賣",
+    "eventType": "復牌",
     "nature": "暫停買賣",
+    "attention": [],
     "category": "公告及通告 - [內幕消息 &#x2f; 其他-業務發展最新情況 &#x2f; 停牌]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1030/2026103000765_c.pdf"
   },
@@ -171,7 +413,9 @@
     "stockName": "中國龍天集團",
     "stockCode": "01863",
     "title": "停牌的最新消息",
+    "eventType": "停牌",
     "nature": "停牌",
+    "attention": [],
     "category": "公告及通告 - [其他-雜項]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1030/2026103000689_c.pdf"
   },
@@ -182,9 +426,24 @@
     "stockName": "陽光１００中國",
     "stockCode": "02608",
     "title": "交易所通告 - 停牌",
+    "eventType": "停牌",
     "nature": "停牌",
+    "attention": [],
     "category": "公告及通告 - [停牌]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1030/2026103000516_c.htm"
+  },
+  {
+    "id": "/listedco/listconews/sehk/2026/1030/2026103000330_c.htm",
+    "date": "2026-10-30",
+    "time": "08:49",
+    "stockName": "恒大物業",
+    "stockCode": "06666",
+    "title": "交易所通告 - 復牌",
+    "eventType": "復牌",
+    "nature": "復牌",
+    "attention": [],
+    "category": "公告及通告 - [復牌]",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1030/2026103000330_c.htm"
   },
   {
     "id": "/listedco/listconews/sehk/2026/1030/2026103000018_c.pdf",
@@ -193,7 +452,9 @@
     "stockName": "應力控股",
     "stockCode": "02663",
     "title": "短暫停牌",
+    "eventType": "停牌",
     "nature": "短暫停牌",
+    "attention": [],
     "category": "公告及通告 - [短暫停牌]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1030/2026103000018_c.pdf"
   },
@@ -204,9 +465,27 @@
     "stockName": "應力控股",
     "stockCode": "02663",
     "title": "交易所通告 - 短暫停牌",
+    "eventType": "停牌",
     "nature": "短暫停牌",
+    "attention": [],
     "category": "公告及通告 - [短暫停牌]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1030/2026103000320_c.htm"
+  },
+  {
+    "id": "/listedco/listconews/sehk/2026/1030/2026103000170_c.pdf",
+    "date": "2026-10-30",
+    "time": "07:00",
+    "stockName": "恒大物業",
+    "stockCode": "06666",
+    "title": "聯合公告 - (1) 要約人與賣方訂立有關本公司已發行股份 總數約51.016%的購股協議 (2) 高盛代表要約人提出有關本公司全部已發行股份（要約人及要約人一致行動人士已擁有或同意將予收購 的股份除外）的潛在無條件強制性現金要約 (3) 恢復買賣",
+    "eventType": "復牌",
+    "nature": "恢復買賣",
+    "attention": [
+      "收购合并",
+      "股权变动"
+    ],
+    "category": "公告及通告 - [《收購守則》所指的要約公司刊發的公告 &#x2f; 《收購守則》所指的受要約公司刊發的公告 &#x2f; 股權出現變動 &#x2f; 內幕消息 &#x2f; 復牌]",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1030/2026103000170_c.pdf"
   },
   {
     "id": "/listedco/listconews/sehk/2026/1029/2026102901962_c.pdf",
@@ -215,7 +494,9 @@
     "stockName": "森美控股",
     "stockCode": "00756",
     "title": "內幕消息(1)延遲刊發26財年年度業績；(2)延遲寄發26財年年報；及(3)繼續暫停買賣",
+    "eventType": "停牌",
     "nature": "暫停買賣",
+    "attention": [],
     "category": "公告及通告 - [延遲發表業績公告 &#x2f; 內幕消息 &#x2f; 停牌]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1029/2026102901962_c.pdf"
   },
@@ -226,7 +507,9 @@
     "stockName": "恒大物業",
     "stockCode": "06666",
     "title": "短暫停牌",
+    "eventType": "停牌",
     "nature": "短暫停牌",
+    "attention": [],
     "category": "公告及通告 - [短暫停牌]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1029/2026102801442_c.pdf"
   },
@@ -237,7 +520,9 @@
     "stockName": "恒大物業",
     "stockCode": "06666",
     "title": "交易所通告 - 短暫停牌",
+    "eventType": "停牌",
     "nature": "短暫停牌",
+    "attention": [],
     "category": "公告及通告 - [短暫停牌]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1029/2026102900106_c.htm"
   },
@@ -248,7 +533,9 @@
     "stockName": "紛美包裝",
     "stockCode": "00468",
     "title": "內幕消息\n(1)法律訴訟之最新消息及\n(2)繼續暫停買賣",
+    "eventType": "停牌",
     "nature": "暫停買賣",
+    "attention": [],
     "category": "公告及通告 - [內幕消息 &#x2f; 停牌]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1028/2026102801670_c.pdf"
   },
@@ -259,7 +546,9 @@
     "stockName": "瑋俊生物科技",
     "stockCode": "00660",
     "title": "董事會會議通知及繼續暫停買賣",
+    "eventType": "停牌",
     "nature": "暫停買賣",
+    "attention": [],
     "category": "公告及通告 - [董事會召開日期 &#x2f; 停牌]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1028/2026102801668_c.pdf"
   },
@@ -270,7 +559,9 @@
     "stockName": "合生創展集團",
     "stockCode": "00754",
     "title": "(1)截至二零二五年十二月三十一日止年度之全年業績及(2)繼續暫停買賣",
+    "eventType": "停牌",
     "nature": "暫停買賣",
+    "attention": [],
     "category": "公告及通告 - [末期業績 &#x2f; 核數師發出「非標準報告」 &#x2f; 停牌]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1028/2026102801322_c.pdf"
   },
@@ -281,7 +572,9 @@
     "stockName": "星太鏈集團",
     "stockCode": "00399",
     "title": "執行董事辭任及繼續暫停買賣",
+    "eventType": "停牌",
     "nature": "暫停買賣",
+    "attention": [],
     "category": "公告及通告 - [更換董事或重要行政職能或職責的變更 &#x2f; 停牌]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1028/2026102801284_c.pdf"
   },
@@ -292,7 +585,9 @@
     "stockName": "永恒策略",
     "stockCode": "00764",
     "title": "短暫停牌",
+    "eventType": "停牌",
     "nature": "短暫停牌",
+    "attention": [],
     "category": "公告及通告 - [短暫停牌]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1028/2026102800134_c.pdf"
   },
@@ -303,7 +598,9 @@
     "stockName": "永恒策略",
     "stockCode": "00764",
     "title": "交易所通告 - 短暫停牌",
+    "eventType": "停牌",
     "nature": "短暫停牌",
+    "attention": [],
     "category": "公告及通告 - [短暫停牌]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1028/2026102800078_c.htm"
   },
@@ -314,7 +611,9 @@
     "stockName": "志道國際",
     "stockCode": "01220",
     "title": "內幕消息完成委任新獨立法證顧問及繼續暫停買賣",
+    "eventType": "停牌",
     "nature": "暫停買賣",
+    "attention": [],
     "category": "公告及通告 - [內幕消息 &#x2f; 停牌]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1027/2026102701286_c.pdf"
   },
@@ -325,7 +624,9 @@
     "stockName": "愛得威建設集團",
     "stockCode": "06189",
     "title": "額外復牌指引及繼續暫停買賣",
+    "eventType": "復牌",
     "nature": "暫停買賣",
+    "attention": [],
     "category": "公告及通告 - [內幕消息 &#x2f; 停牌]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1027/2026102701232_c.pdf"
   },
@@ -336,7 +637,9 @@
     "stockName": "文業集團",
     "stockCode": "01802",
     "title": "有關關連交易 &mdash; 塞班島合約之最新進展； 補救措施之進展； 澄清先前公告；及 繼續暫停買賣",
+    "eventType": "停牌",
     "nature": "暫停買賣",
+    "attention": [],
     "category": "公告及通告 - [關連交易 &#x2f; 末期業績 &#x2f; 其他-雜項]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1026/2026102601174_c.pdf"
   },
@@ -347,7 +650,9 @@
     "stockName": "寶積資本",
     "stockCode": "08168",
     "title": "一名股東要求罷免現任董事及委任新董事及繼續暫停買賣",
+    "eventType": "停牌",
     "nature": "暫停買賣",
+    "attention": [],
     "category": "公告及通告 - [更換董事或重要行政職能或職責的變更 &#x2f; 內幕消息 &#x2f; 停牌]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1026/2026102601110_c.pdf"
   },
@@ -358,7 +663,9 @@
     "stockName": "寶積資本",
     "stockCode": "08168",
     "title": "復牌指引及繼續暫停買賣",
+    "eventType": "復牌",
     "nature": "暫停買賣",
+    "attention": [],
     "category": "公告及通告 - [內幕消息 &#x2f; 停牌]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1026/2026102601102_c.pdf"
   },
@@ -369,7 +676,9 @@
     "stockName": "寶發控股",
     "stockCode": "08532",
     "title": "由法院作出清盤；\n委任臨時清盤人；及\n暫停買賣",
+    "eventType": "停牌",
     "nature": "暫停買賣",
+    "attention": [],
     "category": "公告及通告 - [內幕消息 &#x2f; 停牌 &#x2f; 發行人、其控股公司或主要附屬公司結束營業及清盤]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1026/2026102600782_c.pdf"
   },
@@ -380,7 +689,9 @@
     "stockName": "紛美包裝",
     "stockCode": "00468",
     "title": "(1)刊發本集團截至二零二六年九月三十日止九個月的未經審核綜合管理賬目\n及\n(2)繼續暫停買賣",
+    "eventType": "停牌",
     "nature": "暫停買賣",
+    "attention": [],
     "category": "公告及通告 - [內幕消息 &#x2f; 其他-營運業績最新情況 &#x2f; 停牌]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1026/2026102600387_c.pdf"
   },
@@ -391,7 +702,9 @@
     "stockName": "寶新置地",
     "stockCode": "00299",
     "title": "(1)上市委員會有關取消上市地位之決定；(2)覆核權及對決定之覆核要求；及(3)繼續暫停買賣",
+    "eventType": "停牌",
     "nature": "暫停買賣",
+    "attention": [],
     "category": "公告及通告 - [內幕消息 &#x2f; 私有化&#x2f;撤銷或取消證券上市 &#x2f; 停牌]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1026/2026102600333_c.pdf"
   },
@@ -402,9 +715,39 @@
     "stockName": "寶發控股",
     "stockCode": "08532",
     "title": "交易所通告 - 停牌",
+    "eventType": "停牌",
     "nature": "停牌",
+    "attention": [],
     "category": "公告及通告 - [停牌]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1026/2026102600172_c.htm"
+  },
+  {
+    "id": "/listedco/listconews/sehk/2026/1026/2026102600108_c.htm",
+    "date": "2026-10-26",
+    "time": "08:53",
+    "stockName": "海通恆信 / HTUTB N2703-R / HTUTB N2803-R",
+    "stockCode": "01905 / 84497 / 85014",
+    "title": "交易所通告 - 復牌",
+    "eventType": "復牌",
+    "nature": "復牌",
+    "attention": [],
+    "category": "公告及通告 - [復牌]",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1026/2026102600108_c.htm"
+  },
+  {
+    "id": "/listedco/listconews/sehk/2026/1023/2026102301534_c.pdf",
+    "date": "2026-10-23",
+    "time": "21:03",
+    "stockName": "海通恆信 / HTUTB N2703-R / HTUTB N2803-R",
+    "stockCode": "01905 / 84497 / 85014",
+    "title": "聯合公告 - (1) 內資股要約人提出附帶先決條件的自願現金部分要約以收購本公司已發行股本中的1,244,831,880股內資股；(2) 聯席財務顧問代表H股要約人提出附帶先決條件的自願現金部分要約以收購本公司已發行股本中的2,955,171,120股H股；及 (3) 恢復買賣",
+    "eventType": "復牌",
+    "nature": "恢復買賣",
+    "attention": [
+      "收购合并"
+    ],
+    "category": "公告及通告 - [《收購守則》所指的受要約公司刊發的公告 &#x2f; 《收購守則》所指的要約公司刊發的公告 &#x2f; 內幕消息 &#x2f; 復牌]",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1023/2026102301534_c.pdf"
   },
   {
     "id": "/listedco/listconews/gem/2026/1023/2026102301077_c.pdf",
@@ -413,9 +756,24 @@
     "stockName": "PACIFIC LEGEND",
     "stockCode": "08547",
     "title": "內幕消息(1) 董事會會議延期；(2) 延遲刊發2026年年度業績及延遲寄發2026年年報；及(3) 繼續暫停買賣",
+    "eventType": "停牌",
     "nature": "暫停買賣",
+    "attention": [],
     "category": "公告及通告 - [內幕消息 &#x2f; 董事會召開日期 &#x2f; 延遲發表業績公告 &#x2f; 停牌]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1023/2026102301077_c.pdf"
+  },
+  {
+    "id": "/listedco/listconews/sehk/2026/1023/2026102300281_c.pdf",
+    "date": "2026-10-23",
+    "time": "16:30",
+    "stockName": "廣匯寶信",
+    "stockCode": "01293",
+    "title": "復牌進度季度更新補充資料",
+    "eventType": "復牌",
+    "nature": "停牌",
+    "attention": [],
+    "category": "公告及通告 - [內幕消息 &#x2f; 其他-業務發展最新情況 &#x2f; 停牌]",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1023/2026102300281_c.pdf"
   },
   {
     "id": "/listedco/listconews/sehk/2026/1023/2026102300246_c.pdf",
@@ -424,7 +782,9 @@
     "stockName": "亮晴控股",
     "stockCode": "03774",
     "title": "短暫停牌",
+    "eventType": "停牌",
     "nature": "短暫停牌",
+    "attention": [],
     "category": "公告及通告 - [短暫停牌]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1023/2026102300246_c.pdf"
   },
@@ -435,9 +795,40 @@
     "stockName": "亮晴控股",
     "stockCode": "03774",
     "title": "交易所通告 - 短暫停牌",
+    "eventType": "停牌",
     "nature": "短暫停牌",
+    "attention": [],
     "category": "公告及通告 - [短暫停牌]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1023/2026102300234_c.htm"
+  },
+  {
+    "id": "/listedco/listconews/gem/2026/1023/2026102300078_c.htm",
+    "date": "2026-10-23",
+    "time": "08:35",
+    "stockName": "森浩集團",
+    "stockCode": "08285",
+    "title": "交易所通告 - 復牌",
+    "eventType": "復牌",
+    "nature": "復牌",
+    "attention": [],
+    "category": "公告及通告 - [復牌]",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1023/2026102300078_c.htm"
+  },
+  {
+    "id": "/listedco/listconews/gem/2026/1022/2026102201419_c.pdf",
+    "date": "2026-10-22",
+    "time": "21:17",
+    "stockName": "森浩集團",
+    "stockCode": "08285",
+    "title": "聯合公佈\n(1)買賣協議；\n(2)新富證券有限公司為及代表要約人可能作出的強制性無條件現金要\n約，以收購本公司全部已發行股份（要約人及╱或其一致行動人士已擁\n有及╱或已同意收購者除外）；\n(3)委任獨立財務顧問；\n及\n(4)恢復買賣",
+    "eventType": "復牌",
+    "nature": "恢復買賣",
+    "attention": [
+      "收购合并",
+      "股权变动"
+    ],
+    "category": "公告及通告 - [股權出現變動 &#x2f; 《收購守則》所指的受要約公司刊發的公告 &#x2f; 《收購守則》所指的要約公司刊發的公告 &#x2f; 復牌]",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1022/2026102201419_c.pdf"
   },
   {
     "id": "/listedco/listconews/sehk/2026/1022/2026102201317_c.pdf",
@@ -446,7 +837,11 @@
     "stockName": "愛得威建設集團",
     "stockCode": "06189",
     "title": "建議更換核數師及繼續暫停買賣",
+    "eventType": "停牌",
     "nature": "暫停買賣",
+    "attention": [
+      "核数师辞任"
+    ],
     "category": "公告及通告 - [更換核數師 &#x2f; 停牌]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1022/2026102201317_c.pdf"
   },
@@ -457,7 +852,9 @@
     "stockName": "愛得威建設集團",
     "stockCode": "06189",
     "title": "內幕消息(1)復牌進展季度更新；及(2)繼續暫停買賣",
+    "eventType": "復牌",
     "nature": "暫停買賣",
+    "attention": [],
     "category": "公告及通告 - [內幕消息 &#x2f; 其他-業務發展最新情況 &#x2f; 停牌]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1022/2026102201315_c.pdf"
   },
@@ -468,7 +865,9 @@
     "stockName": "榮豐集團亞洲",
     "stockCode": "08526",
     "title": "暫停買賣",
+    "eventType": "停牌",
     "nature": "短暫停牌",
+    "attention": [],
     "category": "公告及通告 - [短暫停牌]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1022/2026102200162_c.pdf"
   },
@@ -479,7 +878,9 @@
     "stockName": "方達控股",
     "stockCode": "01521",
     "title": "短暫停牌",
+    "eventType": "停牌",
     "nature": "短暫停牌",
+    "attention": [],
     "category": "公告及通告 - [短暫停牌]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1022/2026102200040_c.pdf"
   },
@@ -490,7 +891,9 @@
     "stockName": "榮豐集團亞洲",
     "stockCode": "08526",
     "title": "交易所通告 - 短暫停牌",
+    "eventType": "停牌",
     "nature": "短暫停牌",
+    "attention": [],
     "category": "公告及通告 - [短暫停牌]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1022/2026102200102_c.htm"
   },
@@ -501,7 +904,9 @@
     "stockName": "方達控股",
     "stockCode": "01521",
     "title": "交易所通告 - 短暫停牌",
+    "eventType": "停牌",
     "nature": "短暫停牌",
+    "attention": [],
     "category": "公告及通告 - [短暫停牌]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1022/2026102200100_c.htm"
   },
@@ -512,7 +917,12 @@
     "stockName": "RAFFLESINTERIOR",
     "stockCode": "01376",
     "title": "(1) 有關核數師辭任的補充資料；(2)委任獨立非執行董事；(3)董事調任；(4)董事委員會組成變更；(5)控股股東提供財務資助；及(6)繼續暫停買賣",
+    "eventType": "停牌",
     "nature": "暫停買賣",
+    "attention": [
+      "核数师辞任",
+      "股权变动"
+    ],
     "category": "公告及通告 - [更換核數師 &#x2f; 更換董事或重要行政職能或職責的變更 &#x2f; 更換審核委員會成員 &#x2f; 更換薪酬委員會成員 &#x2f; 停牌]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1021/2026102101168_c.pdf"
   },
@@ -523,7 +933,9 @@
     "stockName": "炙龍控股",
     "stockCode": "08493",
     "title": "委任獨立內部控制顧問；及繼續暫停買賣",
+    "eventType": "停牌",
     "nature": "暫停買賣",
+    "attention": [],
     "category": "公告及通告 - [內幕消息 &#x2f; 停牌]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1021/2026102101134_c.pdf"
   },
@@ -534,7 +946,9 @@
     "stockName": "志道國際",
     "stockCode": "01220",
     "title": "內幕消息\n獨立法證顧問變動及繼續暫停買賣",
+    "eventType": "停牌",
     "nature": "暫停買賣",
+    "attention": [],
     "category": "公告及通告 - [內幕消息 &#x2f; 停牌]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1021/2026102101070_c.pdf"
   },
@@ -545,7 +959,11 @@
     "stockName": "三巽集團",
     "stockCode": "06611",
     "title": "上市委員會撤銷上市地位之決定；就除牌決定提出覆核申請；及股份繼續暫停買賣",
+    "eventType": "停牌",
     "nature": "暫停買賣",
+    "attention": [
+      "除牌风险"
+    ],
     "category": "公告及通告 - [內幕消息 &#x2f; 其他-雜項 &#x2f; 停牌]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1021/2026102100894_c.pdf"
   },
@@ -556,7 +974,9 @@
     "stockName": "ＨＭＶＯＤ視頻",
     "stockCode": "08103",
     "title": "(1)復牌進度之季度最新資料；(2)移除不發表意見的行動計劃實施進度之季度最新資料；及(3)繼續暫停買賣",
+    "eventType": "復牌",
     "nature": "暫停買賣",
+    "attention": [],
     "category": "公告及通告 - [內幕消息 &#x2f; 其他-業務發展最新情況 &#x2f; 停牌 &#x2f; 其他-雜項]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1021/2026102100774_c.pdf"
   },
@@ -567,7 +987,9 @@
     "stockName": "久融控股",
     "stockCode": "02358",
     "title": "補充公告 - 延遲刊發截至二零二六年六月三十日止年度全年業績；及繼續暫停買賣",
+    "eventType": "停牌",
     "nature": "暫停買賣",
+    "attention": [],
     "category": "公告及通告 - [內幕消息 &#x2f; 延遲發表業績公告 &#x2f; 停牌]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1021/2026102100321_c.pdf"
   },
@@ -578,7 +1000,9 @@
     "stockName": "紛美包裝",
     "stockCode": "00468",
     "title": "獨立內部控制審查之進一步後續審查；及\n繼續暫停買賣",
+    "eventType": "停牌",
     "nature": "暫停買賣",
+    "attention": [],
     "category": "公告及通告 - [內幕消息 &#x2f; 停牌]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1020/2026102001066_c.pdf"
   },
@@ -589,7 +1013,9 @@
     "stockName": "中信銀行",
     "stockCode": "00998",
     "title": "關於優先股停牌的提示性公告",
+    "eventType": "停牌",
     "nature": "停牌",
+    "attention": [],
     "category": "公告及通告 - [其他-雜項]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1020/2026102000638_c.pdf"
   },
@@ -600,7 +1026,9 @@
     "stockName": "復興亞洲",
     "stockCode": "00274",
     "title": "復牌之季度更新 及 繼續暫停買賣",
+    "eventType": "復牌",
     "nature": "暫停買賣",
+    "attention": [],
     "category": "公告及通告 - [延遲發表業績公告 &#x2f; 內幕消息 &#x2f; 其他-業務發展最新情況 &#x2f; 停牌]",
     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1020/2026102000086_c.pdf"
   }
