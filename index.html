@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>港交所停牌公告查询</title>
+<style>
+  :root {
+    --primary: #b30d15;
+    --bg: #f5f6f8;
+    --card: #ffffff;
+    --text: #1f2329;
+    --muted: #8a919c;
+    --border: #e5e7eb;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.5;
+  }
+  header {
+    background: var(--primary); color: #fff;
+    padding: 16px; position: sticky; top: 0; z-index: 10;
+  }
+  header h1 { font-size: 18px; font-weight: 600; }
+  header .sub { font-size: 12px; opacity: .85; margin-top: 2px; }
+  .filters {
+    background: var(--card); padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex; flex-direction: column; gap: 10px;
+    position: sticky; top: 62px; z-index: 9;
+  }
+  .search-row { display: flex; gap: 8px; }
+  input[type="search"], input[type="date"] {
+    border: 1px solid var(--border); border-radius: 8px;
+    padding: 8px 10px; font-size: 14px; background: #fff; color: var(--text);
+  }
+  input[type="search"] { flex: 1; min-width: 0; }
+  .date-row { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); }
+  .date-row input { flex: 1; min-width: 0; }
+  .count { font-size: 12px; color: var(--muted); padding: 8px 16px 0; }
+  ul.list { list-style: none; padding: 8px 12px 24px; max-width: 720px; margin: 0 auto; }
+  li.item {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 12px; margin-bottom: 10px;
+  }
+  li.item .top { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+  .badge {
+    font-size: 11px; padding: 2px 8px; border-radius: 10px; white-space: nowrap;
+    background: #fdecec; color: var(--primary);
+  }
+  .badge.resume { background: #e8f7ee; color: #1a7f3c; }
+  .name { font-size: 15px; font-weight: 600; }
+  .code { font-size: 13px; color: var(--muted); font-family: ui-monospace, monospace; }
+  .meta { font-size: 12px; color: var(--muted); margin-top: 6px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .title-line { font-size: 13px; margin-top: 6px; color: #4b5563; word-break: break-all; }
+  a.link { font-size: 13px; color: #1668dc; text-decoration: none; margin-top: 6px; display: inline-block; }
+  a.link:hover { text-decoration: underline; }
+  .empty { text-align: center; color: var(--muted); padding: 40px 0; }
+  footer { text-align: center; font-size: 12px; color: var(--muted); padding: 16px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>港交所停牌公告查询</h1>
+  <div class="sub">数据来源：披露易 HKEXnews · 每日自动更新</div>
+</header>
+
+<div class="filters">
+  <div class="search-row">
+    <input type="search" id="q" placeholder="搜索公司名称或股票代码…" autocomplete="off">
+  </div>
+  <div class="date-row">
+    <input type="date" id="from">
+    <span>至</span>
+    <input type="date" id="to">
+  </div>
+</div>
+
+<div class="count" id="count"></div>
+<ul class="list" id="list"></ul>
+<div class="empty" id="empty" style="display:none">没有符合条件的公告</div>
+
+<footer>仅收录标题含「停牌 / 暫停買賣」的股票公告，原文以披露易为准。</footer>
+
+<script>
+(async function () {
+  const listEl = document.getElementById('list');
+  const countEl = document.getElementById('count');
+  const emptyEl = document.getElementById('empty');
+  const qEl = document.getElementById('q');
+  const fromEl = document.getElementById('from');
+  const toEl = document.getElementById('to');
+
+  let data = [];
+  try {
+    const resp = await fetch('data/announcements.json', { cache: 'no-store' });
+    data = await resp.json();
+  } catch (e) {
+    emptyEl.style.display = 'block';
+    emptyEl.textContent = '数据加载失败，请稍后重试';
+    return;
+  }
+  // 按日期时间倒序
+  data.sort((a, b) => (b.date + b.time).localeCompare(a.date + a.time));
+
+  function render() {
+    const q = qEl.value.trim().toLowerCase();
+    const from = fromEl.value, to = toEl.value;
+    const filtered = data.filter(d => {
+      if (from && d.date < from) return false;
+      if (to && d.date > to) return false;
+      if (q) {
+        const hay = (d.stockName + ' ' + d.stockCode + ' ' + d.title).toLowerCase();
+        if (!hay.includes(q)) return false;
+      }
+      return true;
+    });
+    countEl.textContent = '共 ' + filtered.length + ' 条公告';
+    emptyEl.style.display = filtered.length ? 'none' : 'block';
+    listEl.innerHTML = filtered.map(d => {
+      const resume = /復牌|恢复买卖/.test(d.title);
+      return '<li class="item">' +
+        '<div class="top">' +
+          '<span class="name">' + esc(d.stockName) + '</span>' +
+          '<span class="code">' + esc(d.stockCode) + '</span>' +
+          '<span class="badge' + (resume ? ' resume' : '') + '">' + esc(d.nature) + '</span>' +
+        '</div>' +
+        '<div class="meta"><span>' + esc(d.date) + ' ' + esc(d.time) + '</span></div>' +
+        (d.title && d.title !== d.nature ? '<div class="title-line">' + esc(d.title) + '</div>' : '') +
+        '<a class="link" href="' + esc(d.url) + '" target="_blank" rel="noopener">查看公告原文（披露易）↗</a>' +
+      '</li>';
+    }).join('');
+  }
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[c]));
+  }
+
+  [qEl, fromEl, toEl].forEach(el => el.addEventListener('input', render));
+  render();
+})();
+</script>
+</body>
+</html>
