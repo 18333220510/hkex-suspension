@@ -1,5 +1,72 @@
 [
   {
+    "id": "/listedco/listconews/sehk/2026/1106/2026110601747_c.pdf",
+    "date": "2026-11-06",
+    "time": "22:36",
+    "stockName": "志道國際",
+    "stockCode": "01220",
+    "title": "內幕消息\n建議委任核數師及繼續暫停買賣",
+    "eventType": "停牌",
+    "nature": "暫停買賣",
+    "attention": [],
+    "category": "公告及通告 - [內幕消息 &#x2f; 停牌]",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1106/2026110601747_c.pdf"
+  },
+  {
+    "id": "/listedco/listconews/sehk/2026/1106/2026110601525_c.pdf",
+    "date": "2026-11-06",
+    "time": "20:23",
+    "stockName": "藍河控股",
+    "stockCode": "00498",
+    "title": "復牌進展之季度更新；及繼續暫停買賣",
+    "eventType": "復牌",
+    "nature": "暫停買賣",
+    "attention": [],
+    "category": "公告及通告 - [內幕消息 &#x2f; 其他-業務發展最新情況 &#x2f; 停牌]",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1106/2026110601525_c.pdf"
+  },
+  {
+    "id": "/listedco/listconews/sehk/2026/1106/2026110601495_c.pdf",
+    "date": "2026-11-06",
+    "time": "20:08",
+    "stockName": "冠軍科技集團",
+    "stockCode": "00092",
+    "title": "董事會及審核委員會針對核數師辭任函的反駁與意見及繼續暫停買賣",
+    "eventType": "停牌",
+    "nature": "暫停買賣",
+    "attention": [
+      "核数师辞任"
+    ],
+    "category": "公告及通告 - [更換核數師]",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1106/2026110601495_c.pdf"
+  },
+  {
+    "id": "/listedco/listconews/sehk/2026/1106/2026110600888_c.pdf",
+    "date": "2026-11-06",
+    "time": "17:52",
+    "stockName": "紛美包裝",
+    "stockCode": "00468",
+    "title": "持續關連交易\n(1)補充採購框架協議及\n(2)經修訂年度上限及繼續暫停買賣",
+    "eventType": "停牌",
+    "nature": "暫停買賣",
+    "attention": [],
+    "category": "公告及通告 - [持續關連交易 &#x2f; 停牌]",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1106/2026110600888_c.pdf"
+  },
+  {
+    "id": "/listedco/listconews/sehk/2026/1106/2026110600864_c.pdf",
+    "date": "2026-11-06",
+    "time": "17:46",
+    "stockName": "鑫苑服務",
+    "stockCode": "01895",
+    "title": "額外復牌指引",
+    "eventType": "復牌",
+    "nature": "復牌",
+    "attention": [],
+    "category": "監管者發出的公告及消息",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1106/2026110600864_c.pdf"
+  },
+  {
     "id": "/listedco/listconews/sehk/2026/1105/2026110501728_c.pdf",
     "date": "2026-11-05",
     "time": "18:31",
