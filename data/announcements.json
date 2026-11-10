@@ -1,5 +1,61 @@
 [
   {
+    "id": "/listedco/listconews/sehk/2026/1109/2026110901303_c.pdf",
+    "date": "2026-11-09",
+    "time": "22:54",
+    "stockName": "黃河實業",
+    "stockCode": "00318",
+    "title": "(1) 復牌指引；(2) 有關復牌進展之季度更新；及(3) 繼續暫停買賣",
+    "eventType": "復牌",
+    "nature": "暫停買賣",
+    "attention": [],
+    "category": "公告及通告 - [內幕消息 &#x2f; 其他-業務發展最新情況 &#x2f; 延遲發表業績公告 &#x2f; 停牌]",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1109/2026110901303_c.pdf"
+  },
+  {
+    "id": "/listedco/listconews/sehk/2026/1109/2026110901216_c.pdf",
+    "date": "2026-11-09",
+    "time": "21:59",
+    "stockName": "彼岸控股",
+    "stockCode": "02885",
+    "title": "聯合公告 - (1)要約人與賣方訂立買賣協議；(2)申萬宏源融資（香港）有限公司為及代表要約人提出可能無條件強制性現金要約，以收購本公司全部已發行股份（要約人、其實益擁有人及彼等的任何一致行動人士已擁有及╱或同意收購者除外）；(3)委任獨立財務顧問；及(4)恢復買賣",
+    "eventType": "復牌",
+    "nature": "恢復買賣",
+    "attention": [
+      "收购合并"
+    ],
+    "category": "公告及通告 - [《收購守則》所指的受要約公司刊發的公告 &#x2f; 《收購守則》所指的要約公司刊發的公告 &#x2f; 內幕消息 &#x2f; 復牌]",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1109/2026110901216_c.pdf"
+  },
+  {
+    "id": "/listedco/listconews/sehk/2026/1109/2026110900894_c.pdf",
+    "date": "2026-11-09",
+    "time": "18:57",
+    "stockName": "方達控股",
+    "stockCode": "01521",
+    "title": "聯合公告\n(1)要約人根據公司法第86條通過計劃安排的方式將方達控股公司*\n私有化的附先決條件提案\n(2)建議撤銷方達控股公司*的上市地位\n(3)成立獨立董事委員會及委任獨立財務顧問\n(4)不可撤銷承諾\n(5)股份恢復買賣",
+    "eventType": "復牌",
+    "nature": "恢復買賣",
+    "attention": [
+      "收购合并"
+    ],
+    "category": "公告及通告 - [《收購守則》所指的要約公司刊發的公告 &#x2f; 《收購守則》所指的受要約公司刊發的公告 &#x2f; 私有化&#x2f;撤銷或取消證券上市 &#x2f; 集團重組或協議安排 &#x2f; 內幕消息 &#x2f; 復牌]",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1109/2026110900894_c.pdf"
+  },
+  {
+    "id": "/listedco/listconews/sehk/2026/1109/2026110900144_c.htm",
+    "date": "2026-11-09",
+    "time": "10:51",
+    "stockName": "正榮地產",
+    "stockCode": "06158",
+    "title": "交易所通告 - 停牌",
+    "eventType": "停牌",
+    "nature": "停牌",
+    "attention": [],
+    "category": "公告及通告 - [停牌]",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1109/2026110900144_c.htm"
+  },
+  {
     "id": "/listedco/listconews/sehk/2026/1106/2026110601747_c.pdf",
     "date": "2026-11-06",
     "time": "22:36",
