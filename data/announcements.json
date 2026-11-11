@@ -1,5 +1,72 @@
 [
   {
+    "id": "/listedco/listconews/sehk/2026/1110/2026111001008_c.pdf",
+    "date": "2026-11-10",
+    "time": "19:53",
+    "stockName": "華南城",
+    "stockCode": "01668",
+    "title": "季度更新公告及繼續暫停買賣",
+    "eventType": "停牌",
+    "nature": "暫停買賣",
+    "attention": [],
+    "category": "公告及通告 - [內幕消息 &#x2f; 停牌]",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1110/2026111001008_c.pdf"
+  },
+  {
+    "id": "/listedco/listconews/sehk/2026/1110/2026111000535_c.pdf",
+    "date": "2026-11-10",
+    "time": "17:28",
+    "stockName": "中國北大荒",
+    "stockCode": "00039",
+    "title": "內幕消息：\n(1)有關業務營運及復牌進度的季度更新；及\n(2)繼續暫停買賣",
+    "eventType": "復牌",
+    "nature": "暫停買賣",
+    "attention": [],
+    "category": "公告及通告 - [內幕消息 &#x2f; 其他-業務發展最新情況 &#x2f; 停牌]",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1110/2026111000535_c.pdf"
+  },
+  {
+    "id": "/listedco/listconews/sehk/2026/1110/2026111000281_c.pdf",
+    "date": "2026-11-10",
+    "time": "16:35",
+    "stockName": "中國天瑞水泥",
+    "stockCode": "01252",
+    "title": "復牌進展之季度更新",
+    "eventType": "復牌",
+    "nature": "停牌",
+    "attention": [
+      "核数师辞任"
+    ],
+    "category": "公告及通告 - [內幕消息 &#x2f; 停牌]",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1110/2026111000281_c.pdf"
+  },
+  {
+    "id": "/listedco/listconews/sehk/2026/1110/2026111000070_c.htm",
+    "date": "2026-11-10",
+    "time": "08:44",
+    "stockName": "彼岸控股",
+    "stockCode": "02885",
+    "title": "交易所通告 - 復牌",
+    "eventType": "復牌",
+    "nature": "復牌",
+    "attention": [],
+    "category": "公告及通告 - [復牌]",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1110/2026111000070_c.htm"
+  },
+  {
+    "id": "/listedco/listconews/sehk/2026/1110/2026111000068_c.htm",
+    "date": "2026-11-10",
+    "time": "08:44",
+    "stockName": "方達控股",
+    "stockCode": "01521",
+    "title": "交易所通告 - 復牌",
+    "eventType": "復牌",
+    "nature": "復牌",
+    "attention": [],
+    "category": "公告及通告 - [復牌]",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1110/2026111000068_c.htm"
+  },
+  {
     "id": "/listedco/listconews/sehk/2026/1109/2026110901303_c.pdf",
     "date": "2026-11-09",
     "time": "22:54",
