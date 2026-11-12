@@ -1,5 +1,87 @@
 [
   {
+    "id": "/listedco/listconews/gem/2026/1111/2026111101386_c.pdf",
+    "date": "2026-11-11",
+    "time": "22:00",
+    "stockName": "易站綠色科技",
+    "stockCode": "08475",
+    "title": "(1) GEM上市覆核委員會之決定；(2) 取消上市地位；及 (3) 繼續暫停買賣",
+    "eventType": "停牌",
+    "nature": "暫停買賣",
+    "attention": [
+      "除牌风险"
+    ],
+    "category": "公告及通告 - [內幕消息 &#x2f; 私有化&#x2f;撤銷或取消證券上市 &#x2f; 停牌]",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1111/2026111101386_c.pdf"
+  },
+  {
+    "id": "/listedco/listconews/sehk/2026/1111/2026111101012_c.pdf",
+    "date": "2026-11-11",
+    "time": "19:07",
+    "stockName": "志道國際",
+    "stockCode": "01220",
+    "title": "內幕消息\n有關獨立法證顧問變動及繼續暫停買賣的補充公告",
+    "eventType": "停牌",
+    "nature": "暫停買賣",
+    "attention": [],
+    "category": "公告及通告 - [內幕消息 &#x2f; 停牌]",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1111/2026111101012_c.pdf"
+  },
+  {
+    "id": "/listedco/listconews/sehk/2026/1111/2026111100910_c.pdf",
+    "date": "2026-11-11",
+    "time": "18:47",
+    "stockName": "天譽置業 / SKYFAME B3311 / SKYFAME B3311B / SKYFAME B3111B / SKYFAME B3211 / SKYFAME B3111",
+    "stockCode": "00059 / 05311 / 05379 / 05567 / 05602 / 05855",
+    "title": "復牌進展更新；計劃會議通知；及 繼續暫停買賣",
+    "eventType": "復牌",
+    "nature": "暫停買賣",
+    "attention": [],
+    "category": "公告及通告 - [內幕消息 &#x2f; 其他-業務發展最新情況 &#x2f; 集團重組或協議安排 &#x2f; 停牌]",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1111/2026111100910_c.pdf"
+  },
+  {
+    "id": "/listedco/listconews/sehk/2026/1111/2026111100663_c.pdf",
+    "date": "2026-11-11",
+    "time": "17:48",
+    "stockName": "瑋俊生物科技",
+    "stockCode": "00660",
+    "title": "正面盈利預告及繼續暫停買賣",
+    "eventType": "停牌",
+    "nature": "暫停買賣",
+    "attention": [],
+    "category": "公告及通告 - [盈利警告 &#x2f; 內幕消息 &#x2f; 停牌]",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1111/2026111100663_c.pdf"
+  },
+  {
+    "id": "/listedco/listconews/sehk/2026/1111/2026111100347_c.pdf",
+    "date": "2026-11-11",
+    "time": "16:52",
+    "stockName": "天譽置業 / SKYFAME B3311 / SKYFAME B3311B / SKYFAME B3111B / SKYFAME B3211 / SKYFAME B3111",
+    "stockCode": "00059 / 05311 / 05379 / 05567 / 05602 / 05855",
+    "title": "(1)上市委員會有關取消上市地位之決定；(2) 要求上市覆核委員會覆核上市委員會的決定；及 (3) 繼續暫停買賣",
+    "eventType": "停牌",
+    "nature": "暫停買賣",
+    "attention": [
+      "除牌风险"
+    ],
+    "category": "公告及通告 - [內幕消息 &#x2f; 其他-業務發展最新情況 &#x2f; 停牌]",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1111/2026111100347_c.pdf"
+  },
+  {
+    "id": "/listedco/listconews/gem/2026/1111/2026111100281_c.pdf",
+    "date": "2026-11-11",
+    "time": "16:39",
+    "stockName": "漢諾佳池",
+    "stockCode": "08428",
+    "title": "(1)董事會會議日期及(2)繼續暫停買賣",
+    "eventType": "停牌",
+    "nature": "暫停買賣",
+    "attention": [],
+    "category": "公告及通告 - [董事會召開日期 &#x2f; 停牌]",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1111/2026111100281_c.pdf"
+  },
+  {
     "id": "/listedco/listconews/sehk/2026/1110/2026111001008_c.pdf",
     "date": "2026-11-10",
     "time": "19:53",
