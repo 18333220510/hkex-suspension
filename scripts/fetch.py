@@ -1,164 +1,260 @@
 #!/usr/bin/env python3
-"""从披露易（HKEXnews）标题搜寻抓取每日「停牌 / 复牌」公告。
+"""从披露易抓取停牌公告，并按固定规则分类；不使用 AI。
 
-用法:
-  python3 scripts/fetch.py                # 抓最近 1 天（今天）并合并进 data/announcements.json
-  python3 scripts/fetch.py 20261020 20261104   # 抓指定日期范围（含首尾，YYYYMMDD）
+用法：
+  python3 scripts/fetch.py                         # 抓取香港今天
+  python3 scripts/fetch.py --days 5                # 回补香港最近 5 天（含今天）
+  python3 scripts/fetch.py 20261020 20261031       # 指定日期范围（YYYYMMDD）
+  python3 scripts/fetch.py --reclassify-only        # 仅清理并重分现有数据
 
-数据与页面分离：本脚本只维护 data/announcements.json，页面代码无需改动。
-
-数据字段:
-  eventType  事件类型：停牌 / 复牌
-  nature     性质细分（停牌 / 短暫停牌 / 暫停買賣 / 復牌 / 恢復買賣）
-  attention  重点关注标签列表，可能包含:
-             收购合并  （涉及收购 / 合并守则、全面要约）
-             除牌风险  （长期停牌、上市规则除牌条款）
-             核数师辞任（核数师辞任 / 更换）
-             股权变动  （大股东 / 控股股东股权变动）
+只输出两类：
+  新增停牌：首次/新发生的停牌、短暂停牌或暂停买卖。
+  长期停牌公司进展：继续停牌、停牌进展/季度更新、复牌指引等仍处停牌状态的公告。
+实际复牌/恢复买卖公告会被剔除。分类只依据下方公开关键词规则。
 """
+import argparse
 import json
-import sys
+import re
 import time
 import urllib.parse
 import urllib.request
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 BASE = "https://www1.hkexnews.hk"
 SEARCH_URL = BASE + "/search/titleSearchServlet.do"
 DATA_FILE = Path(__file__).resolve().parent.parent / "data" / "announcements.json"
+HK_TZ = ZoneInfo("Asia/Hong_Kong")
 
-# 标题关键词（披露易为繁体）：停牌 + 复牌两组
-KEYWORDS_SUSPENSION = ["停牌", "暫停買賣"]
-KEYWORDS_RESUMPTION = ["復牌", "恢復買賣"]
+GROUP_NEW = "新增停牌"
+GROUP_PROGRESS = "长期停牌公司进展"
 
-# 只保留主板/创业板股票公告，排除结构性产品（牛熊证/权证）与债券的例行停牌
+# 仍需检索复牌词，才能收录「复牌指引」「复牌进展」等仍处停牌状态的公告；
+# 真正恢复买卖的公告会在 classify() 中被剔除。
+KEYWORDS = ("停牌", "暫停買賣", "復牌", "恢復買賣")
 EXCLUDE_CATEGORY_PREFIXES = ("債券及結構性產品", "債券", "結構性產品")
 
-# 重点关注标签规则：命中任一关键词即打标
-ATTENTION_RULES = [
-    ("收购合并", ["收購", "合併", "併購"]),
-    ("除牌风险", ["除牌", "取消上市", "撤銷上市"]),
-    ("核数师辞任", ["核數師辭任", "核數師辭職", "更換核數師"]),
-    ("股权变动", ["股權", "控股股東"]),
-]
+# 明确表示仍然停牌，优先级最高，避免「复牌进展」被误作实际复牌。
+CONTINUED_TERMS = (
+    "繼續暫停買賣", "持續暫停買賣", "仍然暫停買賣", "繼續停止買賣",
+    "繼續停牌", "持續停牌", "仍然停牌", "維持停牌",
+)
+# 表示停牌期间进展，而非交易已经恢复。
+PROGRESS_TERMS = (
+    "復牌指引", "額外復牌指引", "復牌進展", "復牌進度", "復牌之季度",
+    "復牌季度", "復牌最新", "恢復買賣進展", "恢復買賣進度",
+    "恢復買賣之季度", "停牌進展", "停牌進度", "停牌的最新消息",
+    "停牌最新消息", "季度更新", "季度最新情況", "季度最新資料",
+)
+ACTUAL_RESUMPTION_TERMS = ("恢復買賣", "恢复买卖")
+
+ATTENTION_RULES = (
+    ("收购合并", ("收購", "合併", "併購")),
+    ("除牌风险", ("除牌", "取消上市", "撤銷上市")),
+    ("核数师辞任", ("核數師辭任", "核數師辭職", "更換核數師")),
+    ("股权变动", ("股權", "控股股東")),
+)
+
+
+def has_any(text: str, terms: tuple[str, ...]) -> bool:
+    return any(term in text for term in terms)
+
+
+def is_actual_resumption(title: str, category: str) -> bool:
+    """识别交易已经恢复；继续停牌声明优先于复牌字样。"""
+    text = title + " " + category
+    if has_any(text, CONTINUED_TERMS):
+        return False
+    if has_any(title, ACTUAL_RESUMPTION_TERMS):
+        return True
+    normalized = re.sub(r"\s+", " ", title.strip())
+    if normalized == "復牌" or re.fullmatch(r"交易所通告\s*[-–—]\s*復牌", normalized):
+        return True
+    # 披露易栏目标为「復牌」而标题没有仍停牌/进展说明时，视为实际复牌。
+    return bool(re.search(r"(?:\[|/|&#x2f;)\s*復牌\s*(?:\]|$)", category))
+
+
+def classify(title: str, category: str) -> tuple[str, str] | None:
+    """返回（分组，性质）；实际复牌或无法确认仍停牌时返回 None。
+
+    不按停牌天数推断「长期」，只看公告本身的性质。
+    """
+    text = title + " " + category
+    continued = has_any(text, CONTINUED_TERMS)
+    progress = has_any(text, PROGRESS_TERMS)
+
+    if continued:
+        nature = "復牌指引" if "復牌指引" in text or "恢復買賣指引" in text else "繼續停牌"
+        return GROUP_PROGRESS, nature
+
+    # 「已达成复牌指引及恢复买卖」是实际复牌；明确的继续停牌声明已在上面保留。
+    if is_actual_resumption(title, category):
+        return None
+
+    if progress:
+        nature = "復牌指引" if "復牌指引" in text or "恢復買賣指引" in text else "停牌進展"
+        return GROUP_PROGRESS, nature
+
+    # 没有继续/进展字样，且明确出现停牌事项，按新增停牌处理。
+    if "暫停買賣" in title:
+        return GROUP_NEW, "暫停買賣"
+    if "短暫停牌" in text:
+        return GROUP_NEW, "短暫停牌"
+    if "暫停買賣" in text:
+        return GROUP_NEW, "暫停買賣"
+    if "停牌" in text:
+        return GROUP_NEW, "停牌"
+
+    # 例如只有「有关复牌之公告」而不能确认状态时，宁可不收录，也不猜测。
+    return None
 
 
 def detect_attention(title: str, category: str) -> list[str]:
     text = title + " " + category
-    return [label for label, kws in ATTENTION_RULES if any(k in text for k in kws)]
+    return [label for label, kws in ATTENTION_RULES if has_any(text, kws)]
+
+
+def request_rows(day: date, keyword: str) -> list[dict]:
+    params = {
+        "sortDir": "0", "sortByOptions": "DateTime", "category": "0",
+        "market": "SEHK", "stockId": "-1", "documentType": "-1",
+        "fromDate": day.strftime("%Y%m%d"), "toDate": day.strftime("%Y%m%d"),
+        "title": keyword, "searchType": "1",
+        "t1code": "-2", "t2Gcode": "-2", "t2code": "-2",
+        "rowRange": "100", "lang": "zh",
+    }
+    url = SEARCH_URL + "?" + urllib.parse.urlencode(params)
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+    last_error = None
+    for attempt in range(3):
+        try:
+            with urllib.request.urlopen(req, timeout=30) as resp:
+                payload = json.loads(resp.read().decode("utf-8"))
+            return json.loads(payload["result"]) if payload.get("result") else []
+        except (OSError, ValueError, KeyError) as exc:
+            last_error = exc
+            if attempt < 2:
+                time.sleep(2 ** attempt)
+    raise RuntimeError(f"披露易请求失败：{day} / {keyword}") from last_error
 
 
 def fetch_day(day: date) -> list[dict]:
     items = {}
-    groups = [(KEYWORDS_SUSPENSION, "停牌"), (KEYWORDS_RESUMPTION, "復牌")]
-    for kws, _ in groups:
-        for kw in kws:
-            params = {
-                "sortDir": "0", "sortByOptions": "DateTime", "category": "0",
-                "market": "SEHK", "stockId": "-1", "documentType": "-1",
-                "fromDate": day.strftime("%Y%m%d"), "toDate": day.strftime("%Y%m%d"),
-                "title": kw, "searchType": "1",
-                "t1code": "-2", "t2Gcode": "-2", "t2code": "-2",
-                "rowRange": "100", "lang": "zh",
-            }
-            url = SEARCH_URL + "?" + urllib.parse.urlencode(params)
-            req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
-            with urllib.request.urlopen(req, timeout=30) as resp:
-                payload = json.loads(resp.read().decode("utf-8"))
-            rows = json.loads(payload["result"]) if payload.get("result") else []
-            for r in rows:
-                key = r.get("FILE_LINK") or r.get("NEWS_ID")
-                if key:
-                    items[key] = r
-            time.sleep(0.5)
+    for keyword in KEYWORDS:
+        for row in request_rows(day, keyword):
+            # NEWS_ID 可能重复，必须以披露易文件链接去重。
+            link = row.get("FILE_LINK") or ""
+            if link:
+                items[link] = row
+        time.sleep(0.3)
 
     out = []
-    for r in items.values():
-        cat = (r.get("LONG_TEXT") or r.get("SHORT_TEXT") or "").replace("<br/>", " ")
-        if any(cat.startswith(p) for p in EXCLUDE_CATEGORY_PREFIXES):
+    for link, row in items.items():
+        category = (row.get("LONG_TEXT") or row.get("SHORT_TEXT") or "").replace("<br/>", " ").strip()
+        if any(category.startswith(p) for p in EXCLUDE_CATEGORY_PREFIXES):
             continue
-        link = r.get("FILE_LINK") or ""
-        dt = r.get("DATE_TIME", "")  # "04/11/2026 13:05"
-        d, _, tm = dt.partition(" ")
-        iso_date = ""
-        if d:
-            dd, mm, yyyy = d.split("/")
-            iso_date = f"{yyyy}-{mm}-{dd}"
-        title = (r.get("TITLE") or "").strip()
-        text = title + " " + cat
-        # 事件类型：标题/类别含复牌关键词则记为复牌，否则停牌
-        if any(k in text for k in KEYWORDS_RESUMPTION):
-            event_type = "復牌"
-        else:
-            event_type = "停牌"
-        # 性质细分
-        nature = "停牌"
-        for key in ("短暫停牌", "暫停買賣", "停牌", "恢復買賣", "復牌"):
-            if key in title or key in cat:
-                nature = key
-                break
+        title = (row.get("TITLE") or "").strip()
+        result = classify(title, category)
+        if not result:
+            if not is_actual_resumption(title, category):
+                print(f"警告：无法确认仍处停牌状态，未收录：{day} {title}")
+            continue
+        group, nature = result
+        dt = row.get("DATE_TIME", "")  # 04/11/2026 13:05
+        day_text, _, time_text = dt.partition(" ")
+        try:
+            iso_date = datetime.strptime(day_text, "%d/%m/%Y").date().isoformat()
+        except ValueError:
+            print(f"警告：公告日期格式异常，未收录：{dt} {title}")
+            continue
         out.append({
-            "id": link or r.get("NEWS_ID", ""),
+            "id": link,
             "date": iso_date,
-            "time": tm,
-            "stockName": (r.get("STOCK_NAME") or "").replace("<br/>", " / ").strip(),
-            "stockCode": (r.get("STOCK_CODE") or "").replace("<br/>", " / ").strip(),
+            "time": time_text,
+            "stockName": (row.get("STOCK_NAME") or "").replace("<br/>", " / ").strip(),
+            "stockCode": (row.get("STOCK_CODE") or "").replace("<br/>", " / ").strip(),
             "title": title,
-            "eventType": event_type,
+            "group": group,
             "nature": nature,
-            "attention": detect_attention(title, cat),
-            "category": cat.strip(),
+            "attention": detect_attention(title, category),
+            "category": category,
             "url": BASE + link if link.startswith("/") else link,
         })
     out.sort(key=lambda x: (x["date"], x["time"]))
     return out
 
 
-def normalize(e: dict) -> dict:
-    """为历史数据补齐 eventType / attention 字段。"""
-    text = (e.get("title") or "") + " " + (e.get("category") or "")
-    if not e.get("eventType"):
-        e["eventType"] = "復牌" if any(k in text for k in KEYWORDS_RESUMPTION) else "停牌"
-    if "attention" not in e:
-        e["attention"] = detect_attention(e.get("title") or "", e.get("category") or "")
-    return e
+def normalize(item: dict) -> dict | None:
+    """清理旧复牌字段，并用同一套规则重分全部历史数据。"""
+    item = dict(item)
+    title = item.get("title") or ""
+    category = item.get("category") or ""
+    result = classify(title, category)
+    if not result:
+        return None
+    item["group"], item["nature"] = result
+    item.pop("eventType", None)
+    item["attention"] = detect_attention(title, category)
+    keys = ("id", "date", "time", "stockName", "stockCode", "title", "group", "nature", "attention", "category", "url")
+    return {key: item.get(key, [] if key == "attention" else "") for key in keys}
 
 
 def merge(new_items: list[dict]) -> list[dict]:
     existing = []
     if DATA_FILE.exists():
         existing = json.loads(DATA_FILE.read_text(encoding="utf-8"))
-    by_id = {e["id"]: normalize(e) for e in existing}
-    for e in new_items:
-        by_id[e["id"]] = e
-    merged = sorted(by_id.values(), key=lambda x: (x["date"], x["time"]), reverse=True)
-    return merged
+    by_id = {}
+    for item in existing + new_items:
+        normalized = normalize(item)
+        if normalized and normalized.get("id"):
+            by_id[normalized["id"]] = normalized
+    return sorted(by_id.values(), key=lambda x: (x["date"], x["time"]), reverse=True)
 
 
-def main():
-    if len(sys.argv) == 3:
-        d0 = date(int(sys.argv[1][:4]), int(sys.argv[1][4:6]), int(sys.argv[1][6:]))
-        d1 = date(int(sys.argv[2][:4]), int(sys.argv[2][4:6]), int(sys.argv[2][6:]))
-    else:
-        d0 = d1 = date.today()
+def parse_day(value: str) -> date:
+    try:
+        return datetime.strptime(value, "%Y%m%d").date()
+    except ValueError as exc:
+        raise argparse.ArgumentTypeError("日期必须为 YYYYMMDD") from exc
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("dates", nargs="*", type=parse_day, help="起止日期 YYYYMMDD")
+    parser.add_argument("--days", type=int, help="回补最近 N 天（含香港今天）")
+    parser.add_argument("--reclassify-only", action="store_true", help="不联网，仅重分现有数据")
+    args = parser.parse_args()
+    if args.days is not None and args.days < 1:
+        parser.error("--days 必须大于 0")
+    if args.dates and len(args.dates) != 2:
+        parser.error("请提供起始和结束两个日期")
+    if args.reclassify_only and (args.dates or args.days):
+        parser.error("--reclassify-only 不能与日期参数同时使用")
 
     all_new = []
-    d = d0
-    while d <= d1:
-        rows = fetch_day(d)
-        suspended = sum(1 for r in rows if r["eventType"] == "停牌")
-        resumed = len(rows) - suspended
-        print(f"{d}: {len(rows)} 条（停牌 {suspended} / 复牌 {resumed}）")
-        all_new.extend(rows)
-        d += timedelta(days=1)
+    if not args.reclassify_only:
+        today = datetime.now(HK_TZ).date()
+        if args.dates:
+            start, end = args.dates
+        else:
+            end = today
+            start = today - timedelta(days=(args.days or 1) - 1)
+        if start > end:
+            parser.error("起始日期不能晚于结束日期")
+        current = start
+        while current <= end:
+            rows = fetch_day(current)
+            new_count = sum(row["group"] == GROUP_NEW for row in rows)
+            print(f"{current}: 保留 {len(rows)} 条（{GROUP_NEW} {new_count} / {GROUP_PROGRESS} {len(rows) - new_count}）")
+            all_new.extend(rows)
+            current += timedelta(days=1)
 
     merged = merge(all_new)
     DATA_FILE.parent.mkdir(parents=True, exist_ok=True)
-    DATA_FILE.write_text(
-        json.dumps(merged, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
-    )
-    print(f"共 {len(all_new)} 条新抓取，合并后 data/announcements.json 共 {len(merged)} 条")
+    DATA_FILE.write_text(json.dumps(merged, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    new_total = sum(item["group"] == GROUP_NEW for item in merged)
+    print(f"本次抓取 {len(all_new)} 条；数据共 {len(merged)} 条（{GROUP_NEW} {new_total} / {GROUP_PROGRESS} {len(merged) - new_total}）")
 
 
 if __name__ == "__main__":
