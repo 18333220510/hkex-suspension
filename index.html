@@ -7,7 +7,7 @@
 <title>港交所停牌公告查询</title>
 <style>
   :root {
-    --primary: #b30d15;
+    --primary: #17324D;
     --bg: #f5f6f8;
     --card: #fff;
     --text: #1f2329;
@@ -24,15 +24,11 @@
   header .top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
   header h1 { font-size: 20px; font-weight: 650; }
   header .sub { font-size: 12px; opacity: .88; margin-top: 4px; }
-  .about-link {
-    flex-shrink: 0; color: #fff; text-decoration: none; font-size: 12px;
-    padding: 4px 10px; border: 1px solid rgba(255,255,255,.55); border-radius: 14px;
-  }
-  .about-link:hover { background: rgba(255,255,255,.12); }
   main { padding: 14px 12px 28px; }
   .summary { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
   .stat { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; }
   .stat .label { color: var(--muted); font-size: 12px; }
+  .stat .note { color: var(--muted); font-size: 10px; margin-top: 1px; }
   .stat .number { color: var(--primary); font-size: 25px; font-weight: 650; line-height: 1.3; }
   .filters {
     background: var(--card); border: 1px solid var(--border); border-radius: 10px;
@@ -54,26 +50,26 @@
   }
   .chip.on { background: var(--primary); border-color: var(--primary); color: #fff; }
   .export-btn { flex-shrink: 0; border-color: var(--primary); color: var(--primary); }
-  .export-btn:active { background: #fdecec; }
-  button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visible { outline: 2px solid #1668dc; outline-offset: 2px; }
+  .export-btn:active { background: #e9eff5; }
+  button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
   .count { font-size: 12px; color: var(--muted); padding: 12px 2px 6px; }
   ul.list { list-style: none; padding-top: 2px; }
   li.item { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 13px; margin-bottom: 10px; }
   li.item.hot { border-color: #f0a8ac; background: #fffafa; }
   li.item .top { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
-  .badge { font-size: 11px; padding: 2px 8px; border-radius: 10px; white-space: nowrap; background: #fdecec; color: var(--primary); }
+  .badge { font-size: 11px; padding: 2px 8px; border-radius: 10px; white-space: nowrap; background: #e9eff5; color: var(--primary); }
   .badge.progress { background: #fff4e5; color: #a75108; }
   .badge.hot { background: #fff4e5; color: #a75108; white-space: normal; }
   .name { font-size: 15px; font-weight: 600; }
   .code { font-size: 13px; color: var(--muted); font-family: ui-monospace, monospace; }
   .related { margin-top: 8px; font-size: 12px; }
-  .related summary { display: inline-flex; align-items: center; cursor: pointer; color: #1668dc; padding: 3px 0; }
+  .related summary { display: inline-flex; align-items: center; cursor: pointer; color: var(--primary); padding: 3px 0; }
   .related ul { list-style: none; margin-top: 5px; padding: 6px 10px; background: #f8f9fb; border-radius: 7px; }
   .related li { padding: 3px 0; overflow-wrap: anywhere; }
   .related .related-name { color: #4b5563; }
   .meta { font-size: 12px; color: var(--muted); margin-top: 7px; display: flex; gap: 12px; flex-wrap: wrap; }
   .title-line { font-size: 13px; margin-top: 7px; color: #4b5563; overflow-wrap: anywhere; white-space: pre-line; }
-  a.link { font-size: 13px; color: #1668dc; text-decoration: none; margin-top: 7px; display: inline-block; }
+  a.link { font-size: 13px; color: var(--primary); text-decoration: none; margin-top: 7px; display: inline-block; }
   a.link:hover { text-decoration: underline; }
   .empty { text-align: center; color: var(--muted); padding: 40px 0; }
   footer { text-align: center; font-size: 12px; color: var(--muted); padding: 0 16px 20px; }
@@ -93,15 +89,14 @@
   <div class="inner">
     <div class="top">
       <h1>港交所停牌公告查询</h1>
-      <a class="about-link" href="about/">关于 Jessie ↗</a>
     </div>
-    <div class="sub">新增停牌与长期停牌公司进展 · 披露易固定规则每日自动更新</div>
+    <div class="sub">新增停牌与长期停牌公司进展 · 披露易固定规则每小时自动更新</div>
   </div>
 </header>
 
 <main>
   <section class="summary" aria-label="公告统计">
-    <div class="stat"><div class="label">新增停牌</div><div class="number" id="newTotal">–</div></div>
+    <div class="stat"><div class="label">今日新增停牌</div><div class="note">按香港公告日期统计</div><div class="number" id="newTotal">–</div></div>
     <div class="stat"><div class="label">长期停牌公司进展的公告</div><div class="number" id="progressTotal">–</div></div>
   </section>
 
@@ -130,6 +125,7 @@
 <footer>仅收录股票停牌相关公告，不展示实际复牌记录。原文以披露易为准。<div id="latest"></div></footer>
 
 <script src="scripts/securities.js"></script>
+<script src="scripts/stats.js"></script>
 <script>
 (async function () {
   const listEl = document.getElementById('list');
@@ -154,8 +150,14 @@
   data = data.filter(d => d.group === '新增停牌' || d.group === '长期停牌公司进展');
   data.sort((a, b) => (b.date + b.time).localeCompare(a.date + a.time));
 
-  document.getElementById('newTotal').textContent = data.filter(d => d.group === '新增停牌').length;
-  document.getElementById('progressTotal').textContent = data.filter(d => d.group === '长期停牌公司进展').length;
+  function updateSummary() {
+    document.getElementById('newTotal').textContent = SuspensionStats.countTodayNew(data, new Date());
+    document.getElementById('progressTotal').textContent = data.filter(d => d.group === '长期停牌公司进展').length;
+  }
+  updateSummary();
+  // 页面保持打开时也会在香港午夜后重算；回到前台时立即刷新。
+  setInterval(updateSummary, 60000);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) updateSummary(); });
   if (data.length) document.getElementById('latest').textContent = '最新公告：' + data[0].date + ' ' + data[0].time;
 
   let curGroup = 'all';

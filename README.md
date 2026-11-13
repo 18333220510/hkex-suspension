@@ -5,7 +5,7 @@
 - **新增停牌**：首次/新发生的停牌、短暂停牌或暂停买卖。
 - **长期停牌公司进展的公告**：继续停牌、停牌进展/季度更新、复牌指引、额外复牌指引及其他明确的停牌期间进展。
 
-已经实际复牌/恢复买卖的公告不展示。「长期」按公告性质归类，**不按停牌天数猜测**。关键词搜索、日期筛选、重点关注标签和 CSV 导出均保留。多证券公告默认显示首个主体及代码，其余相关证券可展开查看；原始数据、搜索和 CSV 仍保留完整名称与代码。数据来自披露易（HKEXnews）。
+已经实际复牌/恢复买卖的公告不展示。「长期」按公告性质归类，**不按停牌天数猜测**。顶部「今日新增停牌」只统计公告日期为香港当前日期的新增停牌记录，页面每分钟及回到前台时自动重算；下方历史列表不受影响。关键词搜索、日期筛选、重点关注标签和 CSV 导出均保留。多证券公告默认显示首个主体及代码，其余相关证券可展开查看；原始数据、搜索和 CSV 仍保留完整名称与代码。数据来自披露易（HKEXnews）。
 
 公开网站：<https://anrui7e.github.io/hkex-suspension/>
 
@@ -13,12 +13,13 @@
 
 ```text
 index.html                            # 查询页面
-about/index.html                      # Jessie Yang 个人介绍页
 data/announcements.json               # 公告数据（脚本维护）
 scripts/fetch.py                      # 抓取、清理、去重及固定规则分类
 scripts/securities.js                 # 首个主体与相关证券的原始顺序配对
+scripts/stats.js                      # 按香港公告日期计算今日新增停牌
 tests/test_fetch.py                   # 分类样例与数据一致性测试
 tests/test_securities.js              # 多证券及普通单主体显示测试
+tests/test_stats.js                   # 香港午夜、当日多条/无数据及历史排除测试
 .github/workflows/update-announcements.yml  # 每小时增量 + 每日回补
 ```
 
@@ -26,7 +27,7 @@ tests/test_securities.js              # 多证券及普通单主体显示测试
 
 **不需要 AI。** GitHub Actions 定时直接运行 Python 程序，请求披露易的公开标题搜索接口，按固定关键词和规则处理数据；网页只读取仓库里的 JSON。
 
-- **每小时增量**：每小时第 **17 分钟**运行，只检查香港最近 **1 天**，避免每小时重复抓取 5 天。
+- **每小时增量**：每小时整点运行，只检查香港最近 **1 天**，避免每小时重复抓取 5 天。整点是计划时间，GitHub 调度可能延迟，不保证必然准点启动。
 - **每日回补**：每天 **16:10 UTC**，即香港时间次日 **00:10**（香港无夏令时），回补最近 **5 天**，覆盖周末、公众假期、深夜公告及此前偶发漏抓。
 - GitHub 定时任务可能延迟。每小时与每日任务共用同一并发队列，即使延迟或同时排队也会依次运行，不会重叠写入 `main`。
 - 每个关键词请求间隔 **0.3 秒**，单次请求超时 **30 秒**，失败最多重试 **3 次**；每小时只需 1 天的 4 次关键词查询，每日回补则为 5 天的 20 次。
@@ -45,7 +46,7 @@ tests/test_securities.js              # 多证券及普通单主体显示测试
 
 ```bash
 python3 -m unittest discover -s tests -v       # 分类样例和数据一致性测试
-node --test tests/test_securities.js           # 多证券与单主体显示测试
+node --test tests/test_securities.js tests/test_stats.js  # 证券显示与香港今日统计测试
 python3 scripts/fetch.py                       # 抓取香港今天
 python3 scripts/fetch.py --days 5              # 回补香港最近 5 天
 python3 scripts/fetch.py 20261020 20261031     # 指定日期范围（含首尾）

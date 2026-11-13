@@ -2,8 +2,8 @@ name: 自动更新停牌公告
 
 on:
   schedule:
-    # 每小时第 17 分钟（UTC），仅抓香港最近 1 天。
-    - cron: "17 * * * *"
+    # 每小时整点（UTC），仅抓香港最近 1 天；GitHub 调度可能延迟。
+    - cron: "0 * * * *"
     # 每天 16:10 UTC，即香港时间次日 00:10，回补最近 5 天；香港无夏令时。
     - cron: "10 16 * * *"
   workflow_dispatch:
@@ -45,8 +45,8 @@ jobs:
       - name: 运行分类测试
         run: python3 -m unittest discover -s tests -v
 
-      - name: 运行证券显示测试
-        run: node --test tests/test_securities.js
+      - name: 运行界面辅助测试
+        run: node --test tests/test_securities.js tests/test_stats.js
 
       - name: 按调度模式抓取公告
         env:
