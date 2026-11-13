@@ -5,8 +5,7 @@
 ## 目录结构
 
 ```
-index.html                  # 查询页面（数据与代码分离，日常更新无需改动）
-about/index.html            # Jessie Yang 个人介绍页
+index.html                  # 页面（数据与代码分离，日常更新无需改动）
 data/announcements.json     # 公告数据（由抓取脚本维护）
 scripts/fetch.py            # 披露易抓取脚本
 ```
