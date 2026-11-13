@@ -1,5 +1,47 @@
 [
   {
+    "id": "/listedco/listconews/sehk/2026/1112/2026111201637_c.pdf",
+    "date": "2026-11-12",
+    "time": "22:59",
+    "stockName": "沿海家園",
+    "stockCode": "01124",
+    "title": "聯合公佈(I)華富建業證券有限公司為及代表DEEP WATER STRATEGY LIMITED提呈之強制性有條件現金要約以收購沿海綠色家園有限公司*全部已發行股份（不包括DEEP WATER STRATEGY LIMITED及CAO先生以及與其任何一方一致行動的人士已擁有或同意收購的股份）；及(II)恢復買賣",
+    "eventType": "復牌",
+    "nature": "恢復買賣",
+    "attention": [
+      "收购合并",
+      "股权变动"
+    ],
+    "category": "公告及通告 - [《收購守則》所指的要約公司刊發的公告 &#x2f; 《收購守則》所指的受要約公司刊發的公告 &#x2f; 股權出現變動 &#x2f; 內幕消息 &#x2f; 復牌]",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1112/2026111201637_c.pdf"
+  },
+  {
+    "id": "/listedco/listconews/gem/2026/1112/2026111200719_c.pdf",
+    "date": "2026-11-12",
+    "time": "17:46",
+    "stockName": "拉近網娛",
+    "stockCode": "08172",
+    "title": "有關復牌進度的季度更新及 繼續暫停買賣",
+    "eventType": "復牌",
+    "nature": "暫停買賣",
+    "attention": [],
+    "category": "公告及通告 - [內幕消息 &#x2f; 其他-業務發展最新情況 &#x2f; 停牌]",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1112/2026111200719_c.pdf"
+  },
+  {
+    "id": "/listedco/listconews/gem/2026/1112/2026111200114_c.pdf",
+    "date": "2026-11-12",
+    "time": "12:01",
+    "stockName": "環球友飲智能",
+    "stockCode": "08496",
+    "title": "未能符合GEM上市規則第5.05(2)條及第5.28條&#x3b; 及繼續暫停買賣",
+    "eventType": "停牌",
+    "nature": "暫停買賣",
+    "attention": [],
+    "category": "公告及通告 - [更換董事或重要行政職能或職責的變更 &#x2f; 更換審核委員會成員 &#x2f; 停牌]",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1112/2026111200114_c.pdf"
+  },
+  {
     "id": "/listedco/listconews/gem/2026/1111/2026111101386_c.pdf",
     "date": "2026-11-11",
     "time": "22:00",
