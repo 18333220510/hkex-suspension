@@ -1,20 +1,23 @@
-name: 每日更新停牌公告
+name: 自动更新停牌公告
 
 on:
-  # 每天 16:10 UTC，即香港时间次日 00:10；香港无夏令时。
   schedule:
+    # 每小时整点（UTC），仅抓香港最近 1 天；GitHub 调度可能延迟。
+    - cron: "0 * * * *"
+    # 每天 16:10 UTC，即香港时间次日 00:10，回补最近 5 天；香港无夏令时。
     - cron: "10 16 * * *"
   workflow_dispatch:
     inputs:
       days:
-        description: 回补最近几天（含香港今天）
+        description: 回补最近几天（含香港今天；1=增量，5=每日回补，也可填更大范围）
         required: true
-        default: "5"
+        default: "1"
         type: string
 
 permissions:
   contents: write
 
+# 每小时和每日任务共用同一队列；即使调度延迟也不会同时写入 main。
 concurrency:
   group: update-hkex-suspensions
   cancel-in-progress: false
@@ -34,13 +37,35 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: 设置 Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
       - name: 运行分类测试
         run: python3 -m unittest discover -s tests -v
 
-      - name: 抓取并回补最近公告
+      - name: 运行界面辅助测试
+        run: node --test tests/test_securities.js tests/test_stats.js
+
+      - name: 按调度模式抓取公告
         env:
-          UPDATE_DAYS: ${{ github.event_name == 'workflow_dispatch' && inputs.days || '5' }}
-        run: python3 scripts/fetch.py --days "$UPDATE_DAYS"
+          EVENT_NAME: ${{ github.event_name }}
+          SCHEDULE: ${{ github.event.schedule }}
+          MANUAL_DAYS: ${{ inputs.days }}
+        run: |
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            days="$MANUAL_DAYS"
+            mode="手动回补"
+          elif [ "$SCHEDULE" = "10 16 * * *" ]; then
+            days="5"
+            mode="每日 5 天回补"
+          else
+            days="1"
+            mode="每小时 1 天增量"
+          fi
+          echo "运行模式：$mode（最近 $days 天）"
+          python3 scripts/fetch.py --days "$days"
 
       - name: 有数据变化才提交并推送
         run: |
@@ -51,5 +76,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/announcements.json
-          git commit -m "每日停牌公告更新：$(TZ=Asia/Hong_Kong date +%F)"
+          git commit -m "停牌公告自动更新：$(TZ=Asia/Hong_Kong date +%F)"
           git push origin main
