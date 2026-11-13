@@ -1,4 +1,5 @@
 import json
+import sys
 import tempfile
 import unittest
 from pathlib import Path
@@ -79,6 +80,41 @@ class DataMaintenanceTests(unittest.TestCase):
             with patch.object(fetch, "DATA_FILE", data_file):
                 merged = fetch.merge([item])
         self.assertEqual(1, len(merged))
+
+    def test_one_and_five_day_modes_preserve_data_and_drop_resumptions(self):
+        old = {
+            "id": "/listedco/existing.pdf", "date": "2026-11-01", "time": "09:00",
+            "stockName": "示例公司", "stockCode": "00001", "title": "短暫停牌",
+            "category": "公告及通告 - [短暫停牌]", "url": "https://www1.hkexnews.hk/listedco/existing.pdf",
+        }
+        resumed = {
+            "id": "/listedco/resumed.pdf", "date": "2026-11-02", "time": "09:00",
+            "title": "交易所通告 - 復牌", "category": "公告及通告 - [復牌]",
+        }
+        fetched_old = dict(old, group=fetch.GROUP_NEW, nature="短暫停牌", attention=[])
+        for days in (1, 5):
+            with self.subTest(days=days), tempfile.TemporaryDirectory() as tmp:
+                data_file = Path(tmp) / "announcements.json"
+                data_file.write_text(json.dumps([old, resumed]), encoding="utf-8")
+                with patch.object(fetch, "DATA_FILE", data_file), \
+                     patch.object(fetch, "fetch_day", return_value=[fetched_old]) as fetch_day, \
+                     patch.object(sys, "argv", ["fetch.py", "--days", str(days)]):
+                    fetch.main()
+                data = json.loads(data_file.read_text(encoding="utf-8"))
+                self.assertEqual(days, fetch_day.call_count)
+                call_dates = [call.args[0] for call in fetch_day.call_args_list]
+                self.assertEqual(call_dates, sorted(call_dates))
+                self.assertEqual(days - 1, (call_dates[-1] - call_dates[0]).days)
+                self.assertEqual(1, len(data))
+                self.assertEqual(old["id"], data[0]["id"])
+                self.assertEqual(fetch.GROUP_NEW, data[0]["group"])
+
+    def test_fetch_day_spaces_keyword_requests(self):
+        with patch.object(fetch, "request_rows", return_value=[]) as request_rows, \
+             patch.object(fetch.time, "sleep") as sleep:
+            self.assertEqual([], fetch.fetch_day(fetch.date(2026, 11, 13)))
+        self.assertEqual(len(fetch.KEYWORDS), request_rows.call_count)
+        self.assertEqual([0.3] * len(fetch.KEYWORDS), [call.args[0] for call in sleep.call_args_list])
 
     def test_current_json_is_consistent(self):
         data_file = Path(__file__).resolve().parent.parent / "data" / "announcements.json"

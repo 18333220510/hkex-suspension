@@ -55,7 +55,7 @@
   .chip.on { background: var(--primary); border-color: var(--primary); color: #fff; }
   .export-btn { flex-shrink: 0; border-color: var(--primary); color: var(--primary); }
   .export-btn:active { background: #fdecec; }
-  button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid #1668dc; outline-offset: 2px; }
+  button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visible { outline: 2px solid #1668dc; outline-offset: 2px; }
   .count { font-size: 12px; color: var(--muted); padding: 12px 2px 6px; }
   ul.list { list-style: none; padding-top: 2px; }
   li.item { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 13px; margin-bottom: 10px; }
@@ -66,6 +66,11 @@
   .badge.hot { background: #fff4e5; color: #a75108; white-space: normal; }
   .name { font-size: 15px; font-weight: 600; }
   .code { font-size: 13px; color: var(--muted); font-family: ui-monospace, monospace; }
+  .related { margin-top: 8px; font-size: 12px; }
+  .related summary { display: inline-flex; align-items: center; cursor: pointer; color: #1668dc; padding: 3px 0; }
+  .related ul { list-style: none; margin-top: 5px; padding: 6px 10px; background: #f8f9fb; border-radius: 7px; }
+  .related li { padding: 3px 0; overflow-wrap: anywhere; }
+  .related .related-name { color: #4b5563; }
   .meta { font-size: 12px; color: var(--muted); margin-top: 7px; display: flex; gap: 12px; flex-wrap: wrap; }
   .title-line { font-size: 13px; margin-top: 7px; color: #4b5563; overflow-wrap: anywhere; white-space: pre-line; }
   a.link { font-size: 13px; color: #1668dc; text-decoration: none; margin-top: 7px; display: inline-block; }
@@ -124,6 +129,7 @@
 
 <footer>仅收录股票停牌相关公告，不展示实际复牌记录。原文以披露易为准。<div id="latest"></div></footer>
 
+<script src="scripts/securities.js"></script>
 <script>
 (async function () {
   const listEl = document.getElementById('list');
@@ -177,15 +183,21 @@
     listEl.innerHTML = items.map(d => {
       const hot = (d.attention || []).length > 0;
       const progress = d.group === '长期停牌公司进展';
+      const securities = SecurityDisplay.entities(d);
+      const primary = securities[0] || { name: '', code: '' };
+      const related = securities.slice(1);
       return '<li class="item' + (hot ? ' hot' : '') + '">' +
         '<div class="top">' +
-          '<span class="name">' + esc(d.stockName) + '</span>' +
-          '<span class="code">' + esc(d.stockCode) + '</span>' +
+          '<span class="name">' + esc(primary.name) + '</span>' +
+          (primary.code ? '<span class="code">（' + esc(primary.code) + '）</span>' : '') +
           '<span class="badge' + (progress ? ' progress' : '') + '">' + esc(d.group) + '</span>' +
           '<span class="badge">' + esc(d.nature) + '</span>' +
           (hot ? '<span class="badge hot">⚠ 重点关注 · ' + esc((d.attention || []).join(' / ')) + '</span>' : '') +
         '</div>' +
         '<div class="meta"><span>' + esc(d.date) + ' ' + esc(d.time) + '</span></div>' +
+        (related.length ? '<details class="related"><summary>另涉及 ' + related.length + ' 个相关证券</summary><ul>' +
+          related.map(s => '<li><span class="related-name">' + esc(s.name) + '</span>' + (s.code ? ' <span class="code">（' + esc(s.code) + '）</span>' : '') + '</li>').join('') +
+          '</ul></details>' : '') +
         (d.title ? '<div class="title-line">' + esc(d.title) + '</div>' : '') +
         '<a class="link" href="' + esc(d.url) + '" target="_blank" rel="noopener">查看公告原文（披露易）↗</a>' +
       '</li>';
