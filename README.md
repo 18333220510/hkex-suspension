@@ -1,66 +1,96 @@
-# 港交所停牌复牌公告查询
+# 港交所停牌公告查询
 
-一个可搜索的单页静态网站：按关键词（公司名称 / 股票代码）、日期范围、事件类型（停牌 / 复牌）检索港交所停牌、复牌公告，数据来自披露易（HKEXnews），每日自动更新。支持停牌 → 复牌全周期跟踪和 CSV 导出。
+一个手机友好的静态查询网站，只展示仍处停牌状态的公告，并分为：
+
+- **新增停牌**：首次/新发生的停牌、短暂停牌或暂停买卖。
+- **长期停牌公司进展的公告**：继续停牌、停牌进展/季度更新、复牌指引、额外复牌指引及其他明确的停牌期间进展。
+
+已经实际复牌/恢复买卖的公告不展示。「长期」按公告性质归类，**不按停牌天数猜测**。关键词搜索、日期筛选、重点关注标签和 CSV 导出均保留。数据来自披露易（HKEXnews）。
+
+公开网站：<https://anrui7e.github.io/hkex-suspension/>
 
 ## 目录结构
 
-```
-index.html                  # 查询页面（数据与代码分离，日常更新无需改动）
-about/index.html            # Jessie Yang 个人介绍页
-data/announcements.json     # 公告数据（由抓取脚本维护）
-scripts/fetch.py            # 披露易抓取脚本
+```text
+index.html                            # 查询页面
+about/index.html                      # Jessie Yang 个人介绍页
+data/announcements.json               # 公告数据（脚本维护）
+scripts/fetch.py                      # 抓取、清理、去重及固定规则分类
+tests/test_fetch.py                   # 分类样例与数据一致性测试
+.github/workflows/update-announcements.yml  # 每日自动更新
 ```
 
-## 本地预览
+## 无 AI 自动更新机制
+
+**不需要 AI。** GitHub Actions 每天直接运行 Python 程序，请求披露易的公开标题搜索接口，按固定关键词和规则处理数据；网页只读取仓库里的 JSON。
+
+- 定时触发：每天 **16:10 UTC**，即香港时间次日 **00:10**（香港无夏令时）。GitHub 定时任务可能略有延迟。
+- 每次回补香港最近 **5 天**，覆盖周末、公众假期、深夜公告及此前偶发漏抓；没有公告的日期不会产生空提交。
+- 同一文件多次出现时，以披露易 `FILE_LINK` 去重，**不使用可能重复的 `NEWS_ID`**。
+- 排除「债券及结构性产品」栏目，避免牛熊证、权证等例行停牌。
+- 数据有变化才提交到 `main`；提交后 GitHub Pages 自动重新发布。
+- 整个抓取、分类和提交流程不使用 AI，也不需要任何 AI API Key。
+
+### 在 GitHub 手动运行
+
+1. 打开仓库 **Actions → 每日更新停牌公告 → Run workflow**。
+2. `days` 默认是 `5`，可按需增大来回补更多日期。
+3. 运行结束后查看日志中的两类数量，以及是否提交了数据变化。
+
+### 本地运行
+
+```bash
+python3 -m unittest discover -s tests -v       # 分类样例和数据一致性测试
+python3 scripts/fetch.py                       # 抓取香港今天
+python3 scripts/fetch.py --days 5              # 回补香港最近 5 天
+python3 scripts/fetch.py 20261020 20261031     # 指定日期范围（含首尾）
+python3 scripts/fetch.py --reclassify-only      # 不联网，清理并重分历史 JSON
+```
+
+本地预览：
 
 ```bash
 python3 -m http.server 8000
 # 打开 http://localhost:8000
 ```
 
-## 部署（GitHub Pages）
+## 固定分类规则
 
-```bash
-git init && git add -A && git commit -m "init"
-git remote add origin git@github.com:<你的用户名>/hkex-suspension.git
-git push -u origin main
-# 仓库 Settings → Pages → Source 选 main 分支根目录
-# 访问 https://<你的用户名>.github.io/hkex-suspension/
-```
+脚本仍会检索「复牌 / 恢复买卖」关键词，因为「复牌指引」「复牌进展」等公告实际上仍处于停牌状态。规则顺序如下：
 
-## 每日更新
+1. 标题或栏目明确含「继续暂停买卖、持续停牌」等表述时，归入**长期停牌公司进展**，即使标题同时出现「复牌」。
+2. 没有继续停牌声明，但明确含「恢复买卖」、单独的「交易所通告 - 复牌」或披露易「复牌」栏目时，视为**实际复牌并剔除**。因此「已达成复牌指引及恢复买卖」也不会误留。
+3. 含「复牌指引、额外复牌指引、复牌进展/进度、季度更新、停牌进展」等进展表述时，归入**长期停牌公司进展**。
+4. 其余明确含「短暂停牌、暂停买卖、停牌」且没有继续/进展表述的公告，归入**新增停牌**。
+5. 只有笼统「复牌」字样、无法确认是否仍停牌的公告不收录，并输出警告，不猜测分类。
 
-```bash
-python3 scripts/fetch.py            # 抓取今天并合并进 data/announcements.json
-git add data/announcements.json && git commit -m "update $(date +%F)" && git push
-```
+本次历史数据按上述规则清理并重分，没有需要人工映射的未确定样本。规则局限：它只分析公告标题和披露易栏目，不理解 PDF 全文；披露易若采用全新措辞，可能需要补充关键词。原文始终是最终依据。
 
-页面加载 `data/announcements.json` 渲染，更新数据不需要改页面代码。
+## 失败排查
 
-### 抓取脚本说明
-
-- 数据源：披露易标题搜寻 `titleSearchServlet.do`，逐日检索标题含「停牌」「暫停買賣」「復牌」「恢復買賣」的条目。
-- 排除「債券及結構性產品」类（牛熊证 / 权证例行停牌），只保留股票公告。
-- 可回填历史：`python3 scripts/fetch.py 20261020 20261031`。
-- 每条公告自动计算 `eventType`（停牌 / 复牌）和 `attention`（重点关注标签：收购合并、除牌风险、核数师辞任、股权变动），供页面高亮和每日推送使用。
-
-## 页面功能
-
-- 事件类型筛选：全部 / 停牌 / 复牌；关键词与日期范围过滤。
-- 周期跟踪视图：同一公司按停牌日期 → 复牌日期配对，显示间隔时长；未复牌的显示已停牌天数。
-- 重点关注高亮：涉收购合并、除牌风险、核数师辞任、股权变动的条目橙色标记。
-- 导出 CSV：下载当前筛选结果，UTF-8 with BOM（Excel 直接打开），中文表头。
+- **披露易请求失败**：脚本每次请求最多重试 3 次，仍失败则 Action 失败且不提交。查看失败步骤日志，稍后重新运行工作流。
+- **无法确认的公告**：抓取日志会列出被跳过的标题；核对披露易原文后，再决定是否应增加明确规则。
+- **数据无变化**：日志显示「公告数据无变化，不提交」是正常结果，不代表抓取失败。
+- **测试失败**：先看具体分类样例，修正规则后重新运行测试和 `--reclassify-only`，不要手动只改网页计数。
+- **推送权限失败**：确认仓库 **Settings → Actions → General → Workflow permissions** 允许 `Read and write permissions`。
+- **网站未更新**：先确认 Action 是否产生了新提交，再检查 Pages 是否仍配置为 `main` 分支根目录及最近部署状态。
 
 ## 数据字段
 
 | 字段 | 含义 |
 |---|---|
-| id | 公告文件链接（去重键） |
+| id | 披露易 `FILE_LINK`，去重键 |
 | date / time | 公告日期 / 时间（香港时间） |
-| stockName / stockCode | 公司名称 / 股票代码（多只证券以 " / " 分隔） |
-| eventType | 事件类型：停牌 / 復牌 |
-| nature | 性质细分（停牌 / 短暫停牌 / 暫停買賣 / 復牌 / 恢復買賣） |
-| attention | 重点关注标签列表（收购合并 / 除牌风险 / 核数师辞任 / 股权变动），可为空 |
+| stockName / stockCode | 公司名称 / 股票代码（多只证券以 ` / ` 分隔） |
+| group | `新增停牌` 或 `长期停牌公司进展` |
+| nature | 性质细分：停牌、短暂停牌、暂停买卖、继续停牌、复牌指引、停牌进展 |
+| attention | 重点关注标签：收购合并、除牌风险、核数师辞任、股权变动 |
 | title | 公告标题 |
 | category | 披露易栏目分类 |
-| url | 公告原文链接（披露易） |
+| url | 公告原文链接 |
+
+## GitHub Pages
+
+Pages 使用 `main` 分支根目录发布。更新 `data/announcements.json` 不需要修改页面代码。公开地址：
+
+<https://anrui7e.github.io/hkex-suspension/>

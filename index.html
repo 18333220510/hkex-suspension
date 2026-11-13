@@ -3,14 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>港交所停牌复牌公告查询</title>
+<meta name="description" content="港交所新增停牌与长期停牌公司进展公告查询，数据来自披露易。">
+<title>港交所停牌公告查询</title>
 <style>
   :root {
     --primary: #b30d15;
     --bg: #f5f6f8;
-    --card: #ffffff;
+    --card: #fff;
     --text: #1f2329;
-    --muted: #8a919c;
+    --muted: #737b87;
     --border: #e5e7eb;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -18,114 +19,110 @@
     font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
     background: var(--bg); color: var(--text); line-height: 1.5;
   }
-  header {
-    background: var(--primary); color: #fff;
-    padding: 16px; position: sticky; top: 0; z-index: 10;
-  }
+  header { background: var(--primary); color: #fff; padding: 18px 16px; }
+  header .inner, main, footer { max-width: 760px; margin: 0 auto; }
   header .top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-  header h1 { font-size: 18px; font-weight: 600; }
-  header .sub { font-size: 12px; opacity: .85; margin-top: 2px; }
+  header h1 { font-size: 20px; font-weight: 650; }
+  header .sub { font-size: 12px; opacity: .88; margin-top: 4px; }
   .about-link {
     flex-shrink: 0; color: #fff; text-decoration: none; font-size: 12px;
-    padding: 3px 10px; border: 1px solid rgba(255,255,255,.5); border-radius: 14px;
+    padding: 4px 10px; border: 1px solid rgba(255,255,255,.55); border-radius: 14px;
   }
   .about-link:hover { background: rgba(255,255,255,.12); }
-  @media (max-width: 380px) {
-    header h1 { font-size: 16px; }
-    .about-link { padding: 3px 8px; }
-  }
+  main { padding: 14px 12px 28px; }
+  .summary { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+  .stat { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; }
+  .stat .label { color: var(--muted); font-size: 12px; }
+  .stat .number { color: var(--primary); font-size: 25px; font-weight: 650; line-height: 1.3; }
   .filters {
-    background: var(--card); padding: 12px 16px;
-    border-bottom: 1px solid var(--border);
-    display: flex; flex-direction: column; gap: 10px;
-    position: sticky; top: 62px; z-index: 9;
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 12px; display: flex; flex-direction: column; gap: 10px;
   }
   .search-row { display: flex; gap: 8px; }
   input[type="search"], input[type="date"] {
     border: 1px solid var(--border); border-radius: 8px;
-    padding: 8px 10px; font-size: 14px; background: #fff; color: var(--text);
+    padding: 9px 10px; font-size: 14px; background: #fff; color: var(--text);
   }
-  input[type="search"] { flex: 1; min-width: 0; }
-  .date-row { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); }
-  .date-row input { flex: 1; min-width: 0; }
-  .chip-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
-  .chip-row .lbl { font-size: 13px; color: var(--muted); }
-  .chip {
-    font-size: 13px; padding: 5px 14px; border-radius: 16px;
+  input[type="search"] { flex: 1; min-width: 0; width: 100%; }
+  .date-row { display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--muted); }
+  .date-row input { flex: 1; min-width: 0; width: 100%; }
+  .chip-row { display: flex; gap: 7px; flex-wrap: wrap; align-items: center; }
+  .chip, .export-btn {
+    font-size: 13px; padding: 6px 13px; border-radius: 16px;
     border: 1px solid var(--border); background: #fff; color: var(--text);
     cursor: pointer; -webkit-tap-highlight-color: transparent;
   }
   .chip.on { background: var(--primary); border-color: var(--primary); color: #fff; }
-  .chip.plain.on { background: #1f2329; border-color: #1f2329; }
-  .export-btn {
-    margin-left: auto; font-size: 13px; padding: 5px 14px; border-radius: 16px;
-    border: 1px solid var(--primary); background: #fff; color: var(--primary);
-    cursor: pointer; -webkit-tap-highlight-color: transparent;
-  }
+  .export-btn { flex-shrink: 0; border-color: var(--primary); color: var(--primary); }
   .export-btn:active { background: #fdecec; }
-  .count { font-size: 12px; color: var(--muted); padding: 8px 16px 0; max-width: 720px; margin: 0 auto; width: 100%; }
-  ul.list { list-style: none; padding: 8px 12px 24px; max-width: 720px; margin: 0 auto; }
-  li.item {
-    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
-    padding: 12px; margin-bottom: 10px;
-  }
+  button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid #1668dc; outline-offset: 2px; }
+  .count { font-size: 12px; color: var(--muted); padding: 12px 2px 6px; }
+  ul.list { list-style: none; padding-top: 2px; }
+  li.item { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 13px; margin-bottom: 10px; }
   li.item.hot { border-color: #f0a8ac; background: #fffafa; }
   li.item .top { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
-  .badge {
-    font-size: 11px; padding: 2px 8px; border-radius: 10px; white-space: nowrap;
-    background: #fdecec; color: var(--primary);
-  }
-  .badge.resume { background: #e8f7ee; color: #1a7f3c; }
-  .badge.hot {
-    background: #fff4e5; color: #c2620a;
-  }
+  .badge { font-size: 11px; padding: 2px 8px; border-radius: 10px; white-space: nowrap; background: #fdecec; color: var(--primary); }
+  .badge.progress { background: #fff4e5; color: #a75108; }
+  .badge.hot { background: #fff4e5; color: #a75108; white-space: normal; }
   .name { font-size: 15px; font-weight: 600; }
   .code { font-size: 13px; color: var(--muted); font-family: ui-monospace, monospace; }
-  .meta { font-size: 12px; color: var(--muted); margin-top: 6px; display: flex; gap: 12px; flex-wrap: wrap; }
-  .title-line { font-size: 13px; margin-top: 6px; color: #4b5563; word-break: break-all; white-space: pre-line; }
-  .cycle-line { font-size: 12px; margin-top: 6px; color: #1a7f3c; }
-  .cycle-line.pending { color: #c2620a; }
-  a.link { font-size: 13px; color: #1668dc; text-decoration: none; margin-top: 6px; display: inline-block; }
+  .meta { font-size: 12px; color: var(--muted); margin-top: 7px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .title-line { font-size: 13px; margin-top: 7px; color: #4b5563; overflow-wrap: anywhere; white-space: pre-line; }
+  a.link { font-size: 13px; color: #1668dc; text-decoration: none; margin-top: 7px; display: inline-block; }
   a.link:hover { text-decoration: underline; }
   .empty { text-align: center; color: var(--muted); padding: 40px 0; }
-  footer { text-align: center; font-size: 12px; color: var(--muted); padding: 16px; }
+  footer { text-align: center; font-size: 12px; color: var(--muted); padding: 0 16px 20px; }
+  @media (max-width: 430px) {
+    header { padding: 15px 12px; }
+    header h1 { font-size: 17px; }
+    header .sub { max-width: 270px; }
+    main { padding: 10px 10px 24px; }
+    .stat { padding: 10px; }
+    .stat .number { font-size: 22px; }
+    .chip { padding: 6px 10px; }
+  }
 </style>
 </head>
 <body>
 <header>
-  <div class="top">
-    <h1>港交所停牌复牌公告查询</h1>
-    <a class="about-link" href="about/">关于 Jessie ↗</a>
+  <div class="inner">
+    <div class="top">
+      <h1>港交所停牌公告查询</h1>
+      <a class="about-link" href="about/">关于 Jessie ↗</a>
+    </div>
+    <div class="sub">新增停牌与长期停牌公司进展 · 披露易固定规则每日自动更新</div>
   </div>
-  <div class="sub">数据来源：披露易 HKEXnews · 每日自动更新 · 停牌 → 复牌全周期跟踪</div>
 </header>
 
-<div class="filters">
-  <div class="search-row">
-    <input type="search" id="q" placeholder="搜索公司名称或股票代码…" autocomplete="off">
-    <button class="export-btn" id="export" type="button">导出 CSV</button>
-  </div>
-  <div class="date-row">
-    <input type="date" id="from">
-    <span>至</span>
-    <input type="date" id="to">
-  </div>
-  <div class="chip-row" id="typeChips">
-    <span class="lbl">事件</span>
-    <button class="chip on" data-type="all" type="button">全部</button>
-    <button class="chip" data-type="停牌" type="button">停牌</button>
-    <button class="chip" data-type="復牌" type="button">复牌</button>
-    <span class="lbl" style="margin-left:8px">视图</span>
-    <button class="chip plain on" data-view="list" type="button">公告列表</button>
-    <button class="chip plain" data-view="cycle" type="button">周期跟踪</button>
-  </div>
-</div>
+<main>
+  <section class="summary" aria-label="公告统计">
+    <div class="stat"><div class="label">新增停牌</div><div class="number" id="newTotal">–</div></div>
+    <div class="stat"><div class="label">长期停牌公司进展的公告</div><div class="number" id="progressTotal">–</div></div>
+  </section>
 
-<div class="count" id="count"></div>
-<ul class="list" id="list"></ul>
-<div class="empty" id="empty" style="display:none">没有符合条件的公告</div>
+  <section class="filters" aria-label="筛选公告">
+    <div class="search-row">
+      <input type="search" id="q" placeholder="搜索公司、股票代码或公告标题…" autocomplete="off" aria-label="搜索公告">
+      <button class="export-btn" id="export" type="button">导出 CSV</button>
+    </div>
+    <div class="date-row">
+      <input type="date" id="from" aria-label="开始日期">
+      <span>至</span>
+      <input type="date" id="to" aria-label="结束日期">
+    </div>
+    <div class="chip-row" id="groupChips">
+      <button class="chip on" data-group="all" type="button">全部</button>
+      <button class="chip" data-group="新增停牌" type="button">新增停牌</button>
+      <button class="chip" data-group="长期停牌公司进展" type="button">长期停牌公司进展</button>
+    </div>
+  </section>
 
-<footer>仅收录标题含「停牌 / 暫停買賣 / 復牌 / 恢復買賣」的股票公告，原文以披露易为准。</footer>
+  <div class="count" id="count" aria-live="polite"></div>
+  <ul class="list" id="list"></ul>
+  <div class="empty" id="empty" style="display:none">没有符合条件的公告</div>
+</main>
+
+<footer>仅收录股票停牌相关公告，不展示实际复牌记录。原文以披露易为准。<div id="latest"></div></footer>
 
 <script>
 (async function () {
@@ -136,29 +133,32 @@
   const fromEl = document.getElementById('from');
   const toEl = document.getElementById('to');
   const exportEl = document.getElementById('export');
-  const typeChipsEl = document.getElementById('typeChips');
+  const chipsEl = document.getElementById('groupChips');
 
   let data = [];
   try {
     const resp = await fetch('data/announcements.json', { cache: 'no-store' });
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
     data = await resp.json();
   } catch (e) {
     emptyEl.style.display = 'block';
     emptyEl.textContent = '数据加载失败，请稍后重试';
     return;
   }
-  // 按日期时间倒序
+  data = data.filter(d => d.group === '新增停牌' || d.group === '长期停牌公司进展');
   data.sort((a, b) => (b.date + b.time).localeCompare(a.date + a.time));
 
-  let curType = 'all';   // all | 停牌 | 復牌
-  let curView = 'list';  // list | cycle
+  document.getElementById('newTotal').textContent = data.filter(d => d.group === '新增停牌').length;
+  document.getElementById('progressTotal').textContent = data.filter(d => d.group === '长期停牌公司进展').length;
+  if (data.length) document.getElementById('latest').textContent = '最新公告：' + data[0].date + ' ' + data[0].time;
 
-  // ---------- 筛选 ----------
+  let curGroup = 'all';
+
   function filtered() {
     const q = qEl.value.trim().toLowerCase();
     const from = fromEl.value, to = toEl.value;
     return data.filter(d => {
-      if (curType !== 'all' && d.eventType !== curType) return false;
+      if (curGroup !== 'all' && d.group !== curGroup) return false;
       if (from && d.date < from) return false;
       if (to && d.date > to) return false;
       if (q) {
@@ -169,131 +169,40 @@
     });
   }
 
-  // ---------- 周期配对：同一股票 停牌 → 复牌 ----------
-  // 返回 [{code, name, susp: item|null, res: item|null}]
-  function pairUp(items) {
-    const byCode = {};
-    items.forEach(d => {
-      (d.stockCode || '?').split(' / ').forEach(c => {
-        c = c.trim();
-        if (!c) return;
-        (byCode[c] = byCode[c] || []).push(d);
-      });
-    });
-    const pairs = [];
-    Object.keys(byCode).forEach(code => {
-      const rows = byCode[code].slice().sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
-      let open = null;
-      rows.forEach(d => {
-        if (d.eventType === '停牌') {
-          if (!open || d.date >= open.date) open = d; // 记录最近一次停牌
-        } else if (open) {
-          pairs.push({ code, name: d.stockName || open.stockName, susp: open, res: d });
-          open = null;
-        }
-      });
-      if (open) pairs.push({ code, name: open.stockName, susp: open, res: null });
-    });
-    // 未配对停牌按日期倒序排前；已复牌按复牌日倒序
-    pairs.sort((a, b) => {
-      const da = (a.res || a.susp).date, db = (b.res || b.susp).date;
-      if (a.res && !b.res) return -1;
-      if (!a.res && b.res) return 1;
-      return db.localeCompare(da);
-    });
-    return pairs;
-  }
-
-  function dayDiff(a, b) {
-    return Math.round((new Date(b) - new Date(a)) / 86400000);
-  }
-
-  // ---------- 渲染 ----------
   function render() {
     const items = filtered();
-    if (curView === 'cycle') return renderCycle(items);
-    countEl.textContent = '共 ' + items.length + ' 条公告';
+    const fresh = items.filter(d => d.group === '新增停牌').length;
+    countEl.textContent = '当前 ' + items.length + ' 条（新增停牌 ' + fresh + ' / 长期停牌公司进展 ' + (items.length - fresh) + '）';
     emptyEl.style.display = items.length ? 'none' : 'block';
     listEl.innerHTML = items.map(d => {
-      const resume = d.eventType === '復牌';
       const hot = (d.attention || []).length > 0;
-      // 周期提示：停牌条目找后续复牌；复牌条目找此前停牌
-      let cycle = '';
-      if (d.stockCode) {
-        const codes = d.stockCode.split(' / ').map(s => s.trim()).filter(Boolean);
-        if (d.eventType === '停牌') {
-          const res = data.find(x => x.eventType === '復牌' && codes.some(c => (x.stockCode || '').split(' / ').map(s => s.trim()).includes(c)) && x.date >= d.date && x !== d);
-          if (res) cycle = '<div class="cycle-line">✓ 已于 ' + esc(res.date) + ' 复牌，停牌时长 ' + dayDiff(d.date, res.date) + ' 天</div>';
-          else cycle = '<div class="cycle-line pending">⏳ 截至数据更新日仍未复牌</div>';
-        } else {
-          const past = data.filter(x => x.eventType === '停牌' && codes.some(c => (x.stockCode || '').split(' / ').map(s => s.trim()).includes(c)) && x.date <= d.date)
-                           .sort((a, b) => b.date.localeCompare(a.date))[0];
-          if (past) cycle = '<div class="cycle-line">✓ 配对停牌日 ' + esc(past.date) + '，停牌时长 ' + dayDiff(past.date, d.date) + ' 天</div>';
-        }
-      }
+      const progress = d.group === '长期停牌公司进展';
       return '<li class="item' + (hot ? ' hot' : '') + '">' +
         '<div class="top">' +
           '<span class="name">' + esc(d.stockName) + '</span>' +
           '<span class="code">' + esc(d.stockCode) + '</span>' +
-          '<span class="badge' + (resume ? ' resume' : '') + '">' + esc(d.eventType === '復牌' ? '复牌' : d.nature) + '</span>' +
+          '<span class="badge' + (progress ? ' progress' : '') + '">' + esc(d.group) + '</span>' +
+          '<span class="badge">' + esc(d.nature) + '</span>' +
           (hot ? '<span class="badge hot">⚠ 重点关注 · ' + esc((d.attention || []).join(' / ')) + '</span>' : '') +
         '</div>' +
         '<div class="meta"><span>' + esc(d.date) + ' ' + esc(d.time) + '</span></div>' +
-        cycle +
-        (d.title && d.title !== d.nature ? '<div class="title-line">' + esc(d.title) + '</div>' : '') +
+        (d.title ? '<div class="title-line">' + esc(d.title) + '</div>' : '') +
         '<a class="link" href="' + esc(d.url) + '" target="_blank" rel="noopener">查看公告原文（披露易）↗</a>' +
       '</li>';
     }).join('');
   }
 
-  function renderCycle(items) {
-    const pairs = pairUp(items);
-    const open = pairs.filter(p => !p.res).length;
-    countEl.textContent = '共 ' + pairs.length + ' 个周期（已复牌 ' + (pairs.length - open) + ' / 仍停牌 ' + open + '）';
-    emptyEl.style.display = pairs.length ? 'none' : 'block';
-    listEl.innerHTML = pairs.map(p => {
-      const s = p.susp, r = p.res;
-      const hot = ((s && s.attention || []).concat(r && r.attention || [])).length > 0;
-      let line;
-      if (r) {
-        line = '<div class="cycle-line">✓ ' + esc(s.date) + ' 停牌 → ' + esc(r.date) + ' 复牌，间隔 ' + dayDiff(s.date, r.date) + ' 天</div>';
-      } else {
-        line = '<div class="cycle-line pending">⏳ ' + esc(s.date) + ' 停牌，至今仍未复牌（已 ' + dayDiff(s.date, dataLatest()) + ' 天）</div>';
-      }
-      return '<li class="item' + (hot ? ' hot' : '') + '">' +
-        '<div class="top">' +
-          '<span class="name">' + esc(p.name) + '</span>' +
-          '<span class="code">' + esc(p.code) + '</span>' +
-          (r ? '<span class="badge resume">已复牌</span>' : '<span class="badge">停牌中</span>') +
-          (hot ? '<span class="badge hot">⚠ 重点关注</span>' : '') +
-        '</div>' +
-        line +
-        '<div class="meta">' +
-          (s ? '<span>停牌公告：' + esc(s.date) + '</span>' : '') +
-          (r ? '<span>复牌公告：' + esc(r.date) + '</span>' : '') +
-        '</div>' +
-        (s ? '<a class="link" href="' + esc(s.url) + '" target="_blank" rel="noopener">停牌公告原文 ↗</a> ' : '') +
-        (r ? '<a class="link" href="' + esc(r.url) + '" target="_blank" rel="noopener">复牌公告原文 ↗</a>' : '') +
-      '</li>';
-    }).join('');
-  }
-
-  function dataLatest() {
-    return data.reduce((m, d) => d.date > m ? d.date : m, data[0] ? data[0].date : '');
-  }
-
-  // ---------- CSV 导出（当前筛选结果，UTF-8 BOM，Excel 可直接打开） ----------
   function exportCsv() {
     const items = filtered();
-    const head = ['事件类型', '性质', '日期', '时间', '公司名称', '股票代码', '公告标题', '重点关注', '栏目分类', '原文链接'];
+    const head = ['公告分组', '性质', '日期', '时间', '公司名称', '股票代码', '公告标题', '重点关注', '栏目分类', '原文链接'];
     const cell = v => '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"';
     const lines = [head.map(cell).join(',')].concat(items.map(d =>
-      [d.eventType === '復牌' ? '复牌' : '停牌', d.nature, d.date, d.time, d.stockName, d.stockCode, d.title, (d.attention || []).join(' / '), d.category, d.url].map(cell).join(',')
+      [d.group, d.nature, d.date, d.time, d.stockName, d.stockCode, d.title, (d.attention || []).join(' / '), d.category, d.url].map(cell).join(',')
     ));
     const blob = new Blob(['﻿' + lines.join('\r\n')], { type: 'text/csv;charset=utf-8' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
-    a.download = 'hkex_停牌复牌公告_' + new Date().toISOString().slice(0, 10) + '.csv';
+    a.download = 'hkex_停牌公告_' + new Date().toISOString().slice(0, 10) + '.csv';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -306,16 +215,11 @@
     }[c]));
   }
 
-  typeChipsEl.addEventListener('click', e => {
+  chipsEl.addEventListener('click', e => {
     const btn = e.target.closest('.chip');
     if (!btn) return;
-    if (btn.dataset.type) {
-      curType = btn.dataset.type;
-      typeChipsEl.querySelectorAll('.chip[data-type]').forEach(c => c.classList.toggle('on', c === btn));
-    } else if (btn.dataset.view) {
-      curView = btn.dataset.view;
-      typeChipsEl.querySelectorAll('.chip[data-view]').forEach(c => c.classList.toggle('on', c === btn));
-    }
+    curGroup = btn.dataset.group;
+    chipsEl.querySelectorAll('.chip').forEach(c => c.classList.toggle('on', c === btn));
     render();
   });
   exportEl.addEventListener('click', exportCsv);

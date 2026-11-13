@@ -1,0 +1,55 @@
+name: 每日更新停牌公告
+
+on:
+  # 每天 16:10 UTC，即香港时间次日 00:10；香港无夏令时。
+  schedule:
+    - cron: "10 16 * * *"
+  workflow_dispatch:
+    inputs:
+      days:
+        description: 回补最近几天（含香港今天）
+        required: true
+        default: "5"
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-hkex-suspensions
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: 检出 main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: 设置 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: 运行分类测试
+        run: python3 -m unittest discover -s tests -v
+
+      - name: 抓取并回补最近公告
+        env:
+          UPDATE_DAYS: ${{ github.event_name == 'workflow_dispatch' && inputs.days || '5' }}
+        run: python3 scripts/fetch.py --days "$UPDATE_DAYS"
+
+      - name: 有数据变化才提交并推送
+        run: |
+          if git diff --quiet -- data/announcements.json; then
+            echo "公告数据无变化，不提交。"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/announcements.json
+          git commit -m "每日停牌公告更新：$(TZ=Asia/Hong_Kong date +%F)"
+          git push origin main
